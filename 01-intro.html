@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="generator" content="pandoc">
+    <title>Introduction</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="css/swc.css" />
+    <meta charset="UTF-8" />
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body class="lesson">
+    <div class="container card">
+      <div class="banner">
+      
+      </div>
+      <article>
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+                    <h1 class="title">Introduction</h1>
+          <h1 id="introduction-why-model">Introduction: why model?</h1>
+<section class="objectives panel panel-warning">
+<div class="panel-heading">
+<h2 id="learning-objectives"><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
+</div>
+<div class="panel-body">
+<ul>
+<li>Learners will define modeling.</li>
+<li>Learners will debate the utility of modeling for their data.</li>
+<li>Learners will identify different strategies for fitting models.</li>
+</ul>
+</div>
+</section>
+<p>To understand why you would want to fit models in your research, let’s first consider an example from my own research: A data-set taken from an experiment in visual neuroscience (this experiment was conducted in collaboration with my colleague <a href="http://www.landaulab.com/ayelet-landau.html">Ayelet Landau</a>, while she was at the Ernst Strungmann Institute in Frankfurt).</p>
+<p>In our experiments, participants viewed a stimulus that contained a grating. In each trial of the experiment two gratings were displayed in quick succession.</p>
+<p>The first grating might look something like this:</p>
+<div class="figure">
+<img src="img/surrounded.png" alt="Surrounded grating" />
+<p class="caption">Surrounded grating</p>
+</div>
+<p>While the second would <em>always</em> look like this:</p>
+<div class="figure">
+<img src="img/comparison.png" alt="Comparison grating" />
+<p class="caption">Comparison grating</p>
+</div>
+<p>In each trial of the experiment, participants had to say which of the gratings (the first grating, or the second grating) had higher contrast.</p>
+<aside class="callout panel panel-info">
+<div class="panel-heading">
+<h2 id="contrast-and-surround-suppression"><span class="glyphicon glyphicon-pushpin"></span>Contrast and surround suppression</h2>
+</div>
+<div class="panel-body">
+<p>While our visual system is not particulary good at identifying and discriminating the precise luminance or brightness of a stimulus, it is very sensitive to small changes in contrast. That is, to small <em>differences</em> in luminance across the image. Grating stimuli, like the one we used, are often used in vision science to probe this sensitivity. This is a way for us to measure the effects of the presencee of a surround on contrast perception. For example, it is well known that the relative orientation of the surround affects the degree to which the surround reduces the perceived contrast of the central patch. If the surrounding grating is parallel to the stimulus (as in the case shown above; also sometimes called ‘co-linear’), it has a stronger effect on the perceived contrast (the contrast appears lower, just by virtue of the presence of the grating!). If the surrounding grating is orthogonal to the central patch, the effect is still there, but it is much weaker.</p>
+<p>If you are wondering why we are interested in surround suppression in the first place, you can find some of our papers using these measurements on <a href="http://arokem.org/publications">my website</a>. For example, in <a href="http://arokem.org/publications/papers/Yoon2010SS_MRS.pdf">one study (pdf)</a>, we found that this measurement tells us about differences in brain chemistry between healthy people, and patients with schizophrenia.</p>
+</div>
+</aside>
+<p>Let’s look at the experimental data from one participant. We have two files from this one subject in csv files, ortho.csv and para.csv. As their names suggest they come from two different runs of the experiment: one in which the surrounding stimulus was oriented in the parallel orientation relative to the center stimulus and one in which the surrounding stimulus was orthogonal to the center stimulus. The files contain three columns: contrast1 is the contrast in the first interval, contrast2 is the contrast in the second interval and answer is what the participant thought had higher contrast. We will use the function <code>mlab.csv2rec</code> to read the data into a numpy record array</p>
+<p>— possibly including <a href="reference.html#definitions">definitions</a> —</p>
+<p>mixed with:</p>
+<pre class="sourceCode python"><code class="sourceCode python">
+<span class="ch">from</span> matplotlib <span class="ch">import</span> mlab
+ortho = mlab.csv2rec(<span class="st">&#39;data/ortho.csv&#39;</span>)
+para = mlab.csv2rec(<span class="st">&#39;data/para.csv&#39;</span>)</code></pre>
+<p>and:</p>
+<pre class="sourceCode python"><code class="sourceCode python">
+fig, ax = plt.subplots(<span class="dv">1</span>)
+<span class="co"># We apply a small vertical jitter to each point, just to show that there are multiple points at each location:</span>
+ax.plot(ortho[<span class="st">&#39;contrast1&#39;</span>], ortho[<span class="st">&#39;answer&#39;</span>] + np.random.randn(<span class="dt">len</span>(ortho)) * <span class="fl">0.02</span> , <span class="st">&#39;*&#39;</span>)
+ax.plot(para[<span class="st">&#39;contrast1&#39;</span>], para[<span class="st">&#39;answer&#39;</span>] + np.random.randn(<span class="dt">len</span>(para)) * <span class="fl">0.02</span> , <span class="st">&#39;+&#39;</span>)
+ax.set_ylim([<span class="fl">0.9</span>, <span class="fl">2.1</span>])
+ax.set_xlabel(<span class="st">&#39;Contrast 1&#39;</span>)
+ax.set_ylabel(<span class="st">&#39;Which stimulus had higher contrast? (1 or 2)&#39;</span>)</code></pre>
+<pre class="output"><code>output
+from
+program</code></pre>
+<p>and:</p>
+<pre class="error"><code>error reports from programs (if any)</code></pre>
+<p>and possibly including some of these:</p>
+<p>and one or more of these at the end:</p>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="challenge-title"><span class="glyphicon glyphicon-pencil"></span>Challenge Title</h2>
+</div>
+<div class="panel-body">
+<p>Description of a single challenge, separated from the title by a blank line. There may be several challenges; they should all come at the end of the file, and each should have a short, meaningful title.</p>
+</div>
+</section>
+        </div>
+      </div>
+      </article>
+      <div class="footer">
+        <a class="label swc-blue-bg" href="https://github.com/arokem/scipy-optimize">Source</a>
+        <a class="label swc-blue-bg" href="mailto:arokem@gmail.com">Contact</a>
+        <a class="label swc-blue-bg" href="LICENSE.html">License</a>
+      </div>
+    </div>
+    <!-- Javascript placed at the end of the document so the pages load faster -->
+    <script src="http://software-carpentry.org/v5/js/jquery-1.9.1.min.js"></script>
+    <script src="css/bootstrap/bootstrap-js/bootstrap.js"></script>
+    <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+  </body>
+</html>
