@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="generator" content="pandoc">
+    <title>Linear Models</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="css/swc.css" />
+    <meta charset="UTF-8" />
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body class="lesson">
+    <div class="container card">
+      <div class="banner">
+      
+      </div>
+      <article>
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+                    <h1 class="title">Linear Models</h1>
+          <h1 id="linear-models">Linear models</h1>
+<section class="objectives panel panel-warning">
+<div class="panel-heading">
+<h2 id="learning-objectives"><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
+</div>
+<div class="panel-body">
+<ul>
+<li>Learners can identify a linear model.</li>
+<li>Learners can use <code>np.polyfit</code> to fit a linear model to data</li>
+</ul>
+</div>
+</section>
+<p>The main distinction we will make in this lesson is between linear models and non-linear models. Linear models are models that can be described by the following functional form:</p>
+<pre><code>$\bf{y} = \beta_0 + \beta_1 \bf{x}_1 + \beta_2 \bf{x}_2 + ... + \beta_n \bf{x}_n + \epsilon$,</code></pre>
+<p>where <span class="math">\(\bf{y}\)</span> denotes the dependent variable or variables (that’s why it’s bold-faced: it could be a vector!) in your experiment. <span class="math">\(\bf{x}_i\)</span> are sets of dependent variables (also, possibly vectors) and <span class="math">\(\beta_i\)</span> are parameters. Finally, <span class="math">\(\epsilon\)</span> is the noise in the experiment. You can also think about <span class="math">\(\epsilon\)</span> as all the things that your model doesn’t know about. For example, in the visual experiment described, changes in participants wakefulness might affect performance in a systematic way, but unless we explicitely measure wakefulness and add it as an independent variable to our analysis (as another <span class="math">\(\bf{x}\)</span>), we don’t know it’s value on each trial and it goes into the noise.</p>
+<p>Linear models are easy to fit. Under some fairly generic assumptions (for example that <span class="math">\(\epsilon\)</span> has a zero-mean normal distribution), there is actually an analytic solution to this problem. That is, you can plug it into a formula and get the exact solution: the set of <span class="math">\(\beta\)</span> that give you the smallest sum-of-squared-errors (SSE) between the data you collected and the function defined by the parameters (we will assume that this is your objective, though variataions on this do exist). This is the reason that if you can transform your data somehow to get it into a linear form, you should definitely do that.</p>
+<p>Let’s fit a linear model to our data. In our case, a linear model would simply be a straight line:</p>
+<pre><code>$y = \beta_0 + \beta_1 x$</code></pre>
+<p>These kind of equations (<em>polynomials</em>) can be solved using <code>np.polyfit</code>:</p>
+        </div>
+      </div>
+      </article>
+      <div class="footer">
+        <a class="label swc-blue-bg" href="https://github.com/arokem/scipy-optimize">Source</a>
+        <a class="label swc-blue-bg" href="mailto:arokem@gmail.com">Contact</a>
+        <a class="label swc-blue-bg" href="LICENSE.html">License</a>
+      </div>
+    </div>
+    <!-- Javascript placed at the end of the document so the pages load faster -->
+    <script src="http://software-carpentry.org/v5/js/jquery-1.9.1.min.js"></script>
+    <script src="css/bootstrap/bootstrap-js/bootstrap.js"></script>
+    <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+  </body>
+</html>

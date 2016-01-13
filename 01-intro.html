@@ -24,21 +24,21 @@
       <div class="row">
         <div class="col-md-10 col-md-offset-1">
                     <h1 class="title">Introduction</h1>
-          <h1 id="introduction-why-model">Introduction: why model?</h1>
+          <h1 id="introduction-models-and-why-we-like-them">Introduction: models and why we like them</h1>
 <section class="objectives panel panel-warning">
 <div class="panel-heading">
 <h2 id="learning-objectives"><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
 </div>
 <div class="panel-body">
 <ul>
-<li>Learners will define modeling.</li>
-<li>Learners will debate the utility of modeling for their data.</li>
-<li>Learners will identify different strategies for fitting models.</li>
+<li>Learners can define what a model is.</li>
+<li>Learners can restate the benefits of modeling</li>
+<li>Learners can explain the utility of modeling applied to their data.</li>
 </ul>
 </div>
 </section>
-<p>To understand why you would want to fit models in your research, let’s first consider an example from my own research: A data-set taken from an experiment in visual neuroscience (this experiment was conducted in collaboration with my colleague <a href="http://www.landaulab.com/ayelet-landau.html">Ayelet Landau</a>, while she was at the Ernst Strungmann Institute in Frankfurt).</p>
-<p>In our experiments, participants viewed a stimulus that contained a grating. In each trial of the experiment two gratings were displayed in quick succession.</p>
+<p>To understand why you would want to fit models in your research, let’s first consider an experiment in visual neuroscience (this experiment was conducted by Ariel Rokem in collaboration with <a href="http://www.landaulab.com/ayelet-landau.html">Ayelet Landau</a>, and the data was collected by Ayelet while she was at the Ernst Strüngmann Institute in Frankfurt).</p>
+<p>In these experiments, participants viewed a stimulus that contained a grating. In each trial of the experiment two gratings were displayed in quick succession.</p>
 <p>The first grating might look something like this:</p>
 <div class="figure">
 <img src="img/surrounded.png" alt="Surrounded grating" />
@@ -59,35 +59,102 @@
 <p>If you are wondering why we are interested in surround suppression in the first place, you can find some of our papers using these measurements on <a href="http://arokem.org/publications">my website</a>. For example, in <a href="http://arokem.org/publications/papers/Yoon2010SS_MRS.pdf">one study (pdf)</a>, we found that this measurement tells us about differences in brain chemistry between healthy people, and patients with schizophrenia.</p>
 </div>
 </aside>
-<p>Let’s look at the experimental data from one participant. We have two files from this one subject in csv files, ortho.csv and para.csv. As their names suggest they come from two different runs of the experiment: one in which the surrounding stimulus was oriented in the parallel orientation relative to the center stimulus and one in which the surrounding stimulus was orthogonal to the center stimulus. The files contain three columns: contrast1 is the contrast in the first interval, contrast2 is the contrast in the second interval and answer is what the participant thought had higher contrast. We will use the function <code>mlab.csv2rec</code> to read the data into a numpy record array</p>
-<p>— possibly including <a href="reference.html#definitions">definitions</a> —</p>
-<p>mixed with:</p>
+<p>Let’s look at the experimental data from one participant. We have two files from this one subject in csv files, <code>scipy-optimize-data/ortho.csv</code> and <code>scipy-optimize-data/para.csv</code>. As their names suggest they come from two different runs of the experiment: one in which the surrounding stimulus was oriented in the parallel orientation relative to the center stimulus and one in which the surrounding stimulus was orthogonal to the center stimulus. The files contain three columns: contrast1 is the contrast in the first interval, contrast2 is the contrast in the second interval and answer is what the participant thought had higher contrast. We will use the function <code>mlab.csv2rec</code> to read the data into a numpy <a href="reference.html#record%20array">record array</a>:</p>
 <pre class="sourceCode python"><code class="sourceCode python">
 <span class="ch">from</span> matplotlib <span class="ch">import</span> mlab
-ortho = mlab.csv2rec(<span class="st">&#39;data/ortho.csv&#39;</span>)
-para = mlab.csv2rec(<span class="st">&#39;data/para.csv&#39;</span>)</code></pre>
-<p>and:</p>
+ortho = mlab.csv2rec(<span class="st">&#39;scipy-optimize-data/ortho.csv&#39;</span>)
+para = mlab.csv2rec(<span class="st">&#39;scipy-optimize-data/para.csv&#39;</span>)</code></pre>
+<p>If you take a look at the data you will see that the contrast in the second interval was always 0.3 (30% contrast). That’s because this stimulus served as a reference stimulus, to help participants as an anchor. In other experiments, we also varied that, but, for the purpose for our analysis here, we can safely ignore that column altogether and only look at the contrast in the first interval. Let’s take a look at the data. First, we are just going to plot the raw data as it is. We will consider the contrasts as our independent variable, and the responses as the dependent variables.</p>
 <pre class="sourceCode python"><code class="sourceCode python">
 fig, ax = plt.subplots(<span class="dv">1</span>)
-<span class="co"># We apply a small vertical jitter to each point, just to show that there are multiple points at each location:</span>
-ax.plot(ortho[<span class="st">&#39;contrast1&#39;</span>], ortho[<span class="st">&#39;answer&#39;</span>] + np.random.randn(<span class="dt">len</span>(ortho)) * <span class="fl">0.02</span> , <span class="st">&#39;*&#39;</span>)
-ax.plot(para[<span class="st">&#39;contrast1&#39;</span>], para[<span class="st">&#39;answer&#39;</span>] + np.random.randn(<span class="dt">len</span>(para)) * <span class="fl">0.02</span> , <span class="st">&#39;+&#39;</span>)
+<span class="co"># We apply a small vertical jitter to each point, just to show that there are</span>
+<span class="co"># multiple points at each location:</span>
+ax.plot(ortho[<span class="st">&#39;contrast1&#39;</span>], ortho[<span class="st">&#39;answer&#39;</span>] +
+        np.random.randn(<span class="dt">len</span>(ortho)) * <span class="fl">0.02</span> , <span class="st">&#39;*&#39;</span>)
+ax.plot(para[<span class="st">&#39;contrast1&#39;</span>], para[<span class="st">&#39;answer&#39;</span>] +
+        np.random.randn(<span class="dt">len</span>(para)) * <span class="fl">0.02</span> , <span class="st">&#39;+&#39;</span>)
 ax.set_ylim([<span class="fl">0.9</span>, <span class="fl">2.1</span>])
 ax.set_xlabel(<span class="st">&#39;Contrast 1&#39;</span>)
 ax.set_ylabel(<span class="st">&#39;Which stimulus had higher contrast? (1 or 2)&#39;</span>)</code></pre>
-<pre class="output"><code>output
-from
-program</code></pre>
-<p>and:</p>
-<pre class="error"><code>error reports from programs (if any)</code></pre>
-<p>and possibly including some of these:</p>
-<p>and one or more of these at the end:</p>
-<section class="challenge panel panel-success">
+<p>There seems to be a trend in the data: the larger the contrast in the first interval, the more likely the subject was to press the ‘1’ button. That’s a reasonable thing to do, but it’s hard to see and hard to quantify in this form. Instead, we will transform this data into a plot in which the independent variable is the contrast in interval 1 and the dependent variable is the proportion of trials for which the subject pressed the ‘1’ key for each contrast. Let’s define a function that will do that for us:</p>
+<pre class="sourceCode python"><code class="sourceCode python">
+<span class="kw">def</span> transform_data(data):
+    <span class="co">&quot;&quot;&quot;</span>
+<span class="co">    Function that takes experimental data and gives us the dependent/independent</span>
+<span class="co">    variables for analysis</span>
+
+<span class="co">    Parameters</span>
+<span class="co">    ----------</span>
+<span class="co">    data : rec array</span>
+<span class="co">        The data with records: `contrast1`, `contrast2` and `answer`</span>
+
+<span class="co">    Returns</span>
+<span class="co">    -------</span>
+<span class="co">    x : The unique contrast differences.</span>
+<span class="co">    y : The proportion of &#39;2&#39; answers in each contrast difference</span>
+<span class="co">    n : The number of trials in each x,y condition</span>
+<span class="co">    &quot;&quot;&quot;</span>
+    contrast1 = data[<span class="st">&#39;contrast1&#39;</span>]
+    answers = data[<span class="st">&#39;answer&#39;</span>]
+
+    x = np.unique(contrast1)
+    y = []
+    n = []
+
+    <span class="kw">for</span> c in x:
+        idx = np.where(contrast1 == c)
+        n.append(<span class="dt">float</span>(<span class="dt">len</span>(idx[<span class="dv">0</span>])))
+        answer1 = <span class="dt">len</span>(np.where(answers[idx] == <span class="dv">1</span>)[<span class="dv">0</span>])
+        y.append(answer1 / n[-<span class="dv">1</span>])
+
+    <span class="kw">return</span> x,y,n</code></pre>
+<p>We separately transform the data into probabilities for each one of the data files:</p>
+<pre class="sourceCode python"><code class="sourceCode python">
+x_ortho, y_ortho, n_ortho = transform_data(ortho)
+x_para, y_para, n_para = transform_data(para)</code></pre>
+<p>And visualize that:</p>
+<pre class="sourceCode python"><code class="sourceCode python">
+fig, ax = plt.subplots(<span class="dv">1</span>)
+<span class="co"># To plot each point with size proportional to the number of trials in that condition:</span>
+<span class="kw">for</span> x,y,n in <span class="dt">zip</span>(x_ortho, y_ortho, n_ortho):
+    ax.plot(x, y, <span class="st">&#39;bo&#39;</span>, markersize=n)
+
+<span class="kw">for</span> x,y,n in <span class="dt">zip</span>(x_para, y_para, n_para):
+    ax.plot(x, y, <span class="st">&#39;go&#39;</span>, markersize=n)
+
+ax.set_xlabel(<span class="st">&#39;Contrast in interval 1&#39;</span>)
+ax.set_ylabel(<span class="st">&#39;Proportion answers `1`&#39;</span>)
+ax.set_ylim([-<span class="fl">0.1</span>, <span class="fl">1.1</span>])
+ax.set_xlim([-<span class="fl">0.1</span>, <span class="fl">1.1</span>])
+ax.grid(<span class="st">&#39;on&#39;</span>)
+fig.set_size_inches([<span class="dv">8</span>,<span class="dv">8</span>])</code></pre>
+<p>Obviously there is a systematic relationship between the contrast and the chances that this subject thought that the first interval had the higher contrast. For example, when the contrast was much higher in interval 1 (e.g. 0.9), this person never said that the second interval had higher contrast. Likewise, when the contrast was very low, this person almost never said that the contrast in interval 1 had been higher. In the middle, there seems to be a monotonic relationship between the variables. Also, notice that the two sets of data (orthogonal and parallel) seem to be slightly different.</p>
+<p>Can we say something more precise? For example, we might be interested in the contrast for which answers of ‘1’ and answers of ‘2’ are equally likely. This is known as the point of subjective equality (or PSE) and we can use it to compare different conditions in this experiment and in other experiments, compare different participants, etc.</p>
+<p>In order to derive this quantity, we will have to fit a model to the data.</p>
+<aside class="callout panel panel-info">
 <div class="panel-heading">
-<h2 id="challenge-title"><span class="glyphicon glyphicon-pencil"></span>Challenge Title</h2>
+<h2 id="contrast-and-surround-suppression-1"><span class="glyphicon glyphicon-pushpin"></span>Contrast and surround suppression</h2>
 </div>
 <div class="panel-body">
-<p>Description of a single challenge, separated from the title by a blank line. There may be several challenges; they should all come at the end of the file, and each should have a short, meaningful title.</p>
+
+</div>
+</aside>
+<blockquote>
+<p>If were doing this in earnest, we would take into account the number of trials that was performed at each contrast (especially given that there are more trials in some conditions). For the purpose of this lesson, we will ignore that, and leave it as an exercise for the reader.</p>
+</blockquote>
+<h3 id="models-and-why-we-like-them">Models and why we like them</h3>
+<p>Models derived from data are useful for several reasons:</p>
+<ul>
+<li><p><strong>They allow you to explain the data you have</strong>: summary statistics of the data, such as the mean of some variable, or the variance of this variable, are often not the best explanation of the data you have observed, in terms of the theory. For example, in the data we have observed in our experiment, a useful quantity is the PSE, which telss us what the perceived contrast of the surrounding grating was. This quantity is not readily present in summary statistics of the data. A functional form of a model is a mathematical formula that relates systematic changes in measured dependent variables, based on experimental manipulations of the independent variables. The functional form of the model varies with changes in model parameters. In the typical case, parameters are variables specificied in the model, that are neither your dependent variables nor your independent variables. If the model parameters correspond to theoretically meaningful quantities (such as the PSE), that can make the model useful in explaining the data and help test hypotheses about the theory behind the experiment.</p></li>
+<li><p><strong>They allow you to predict data you haven’t collected</strong>: In many cases, assuming that the parameters don’t change with changes in the independent variables, models allow us to interpolate and predict what the dependent variables would have been like in other values of the independent variables. Even extrapolate to conditions that have not measured. For example, because measuring in these conditions is difficult for practical reasons.</p></li>
+<li><p><strong>They allow us to build theories</strong>: By applying a modeling approach to data, we can hope to build an incremental knowledge abouth the domain we are studying. For example, Newton’s law of gravitation provides us with a quantitative prediction on the behavior of any two bodies. The observation that this model does not perform well in all conditions, led to Einstein’s theory of general relativity, which provides a generalization of this law (or model).</p></li>
+</ul>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="modeling-in-your-field"><span class="glyphicon glyphicon-pencil"></span>Modeling in your field</h2>
+</div>
+<div class="panel-body">
+<p>Give an example of data that you use in your research and a model applied to the data.</p>
 </div>
 </section>
         </div>
