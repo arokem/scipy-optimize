@@ -18,6 +18,7 @@ to data.
 > ## Getting ready {.getready}
 >
 > You need to download some files to follow this lesson:
+>
 > 1. Make a new folder in your Desktop called `scipy-optimize`.
 >
 > 2. Download [scipy-optimize-data.zip](./scipy-optimize-data.zip) and move the file to this folder.
