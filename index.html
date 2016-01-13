@@ -38,13 +38,23 @@
 <h2 id="getting-ready"><span class="glyphicon glyphicon-check"></span>Getting ready</h2>
 </div>
 <div class="panel-body">
-<p>You need to download some files to follow this lesson:</p>
 <ol style="list-style-type: decimal">
+<li>Learners need to have the <code>scipy</code> library installed on their computers. On most computers this is already the case. You can test that by running the following in an IPython session:</li>
+</ol>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="ch">import</span> scipy</code></pre>
+<p>If this raises an error, you might need to run the following in the unixe shell:</p>
+<pre class="input"><code>$ pip install scipy</code></pre>
+<p>Explanation: <a href="https://pip.pypa.io/en/stable/">pip</a> is a python <a href="https://en.wikipedia.org/wiki/Package_manager">‘package manager’</a>, which will go grab the necessary software for this lesson and install it on your machine. Another option is to use the <a href="">conda</a> package manager in the unix shell as follows:</p>
+<pre class="input"><code>$ conda install scipy</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>You need to download some files to follow this lesson:</li>
+</ol>
+<ul>
 <li><p>Make a new folder in your Desktop called <code>scipy-optimize</code>.</p></li>
 <li><p>Download <a href="./scipy-optimize-data.zip">scipy-optimize-data.zip</a> and move the file to this folder.</p></li>
 <li><p>If it’s not unzipped yet, double-click on it to unzip it. You should end up with a new folder called <code>scipy-optimize-data</code>.</p></li>
 <li><p>You can access this folder from the Unix shell with:</p></li>
-</ol>
+</ul>
 <pre class="input"><code>$ cd &amp;&amp; cd Desktop/scipy-optimize/scipy-optimize-data</code></pre>
 </div>
 </section>
