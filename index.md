@@ -17,14 +17,15 @@ to data.
 > ## Getting ready {.getready}
 >
 > 1. Learners need to have the `scipy` library installed on their computers.
-> On most computers this is already the case. You can test that by running
-> the following in an IPython session:
+> If you have used your computer in a Software Carpentry workshop, it is likely
+> that you already have it installed.
+> You can test that by running the following in an IPython session:
 >
 > ~~~ {.python}
 > import scipy
 > ~~~
 >
-> If this raises an error, you might need to run the following in the unixe
+> If this raises an error, you might need to run the following in the unix
 > shell:
 >
 > ~~~ {.input}
