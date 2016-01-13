@@ -18,10 +18,17 @@ to data.
 > ## Getting ready {.getready}
 >
 > You need to download some files to follow this lesson:
->  1. Download
-> 1. Make a new folder in your Desktop called `python-novice-inflammation`.
+> 1. Make a new folder in your Desktop called `scipy-optimize`.
+>
 > 2. Download [scipy-optimize-data.zip](./scipy-optimize-data.zip) and move the file to this folder.
+>
 > 3. If it's not unzipped yet, double-click on it to unzip it. You should end up with a new folder called `scipy-optimize-data`.
+>
+> 4. You can access this folder from the Unix shell with:
+>
+> ~~~ {.input}
+> $ cd && cd Desktop/scipy-optimize/scipy-optimize-data
+> ~~~
 
 
 ## Topics
