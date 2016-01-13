@@ -14,18 +14,41 @@ to data.
 > in the Software Carpentry novice lesson.
 >
 
-
 > ## Getting ready {.getready}
 >
-> You need to download some files to follow this lesson:
+> 1. Learners need to have the `scipy` library installed on their computers.
+> On most computers this is already the case. You can test that by running
+> the following in an IPython session:
 >
-> 1. Make a new folder in your Desktop called `scipy-optimize`.
+> ~~~ {.python}
+> import scipy
+> ~~~
 >
-> 2. Download [scipy-optimize-data.zip](./scipy-optimize-data.zip) and move the file to this folder.
+> If this raises an error, you might need to run the following in the unixe
+> shell:
 >
-> 3. If it's not unzipped yet, double-click on it to unzip it. You should end up with a new folder called `scipy-optimize-data`.
+> ~~~ {.input}
+> $ pip install scipy
+> ~~~
 >
-> 4. You can access this folder from the Unix shell with:
+> Explanation: [pip](https://pip.pypa.io/en/stable/) is a python ['package manager'](https://en.wikipedia.org/wiki/Package_manager), which will go grab
+> the necessary software for this lesson and install it on your machine.
+> Another option is to use the [conda]() package manager in the unix shell as
+> follows:
+>
+> ~~~ {.input}
+> $ conda install scipy
+> ~~~
+>
+> 2. You need to download some files to follow this lesson:
+>
+> - Make a new folder in your Desktop called `scipy-optimize`.
+>
+> - Download [scipy-optimize-data.zip](./scipy-optimize-data.zip) and move the file to this folder.
+>
+> - If it's not unzipped yet, double-click on it to unzip it. You should end up with a new folder called `scipy-optimize-data`.
+>
+> - You can access this folder from the Unix shell with:
 >
 > ~~~ {.input}
 > $ cd && cd Desktop/scipy-optimize/scipy-optimize-data
