@@ -52,6 +52,7 @@ that give you the smallest SSE between the data you collected and the function
 defined by the parameters.
 
 > ## Linearized models {.callout}
+>
 >  Because linear models are easy to fit, if you can transform your data somehow
 >  to get it into a linear form, you should definitely do that.
 
