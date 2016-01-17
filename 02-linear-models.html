@@ -32,20 +32,20 @@
 <div class="panel-body">
 <ul>
 <li>Learners can identify a linear model.</li>
-<li>Learners can use <code>scipy.stats</code> to fit a linear model to data</li>
+<li>Learners can use <code>numpy</code> to fit a linear model to data</li>
+<li>Leaners can evaluate a model using model residuals.</li>
 </ul>
 </div>
 </section>
 <p>The main distinction we will make in this lesson is between linear models and non-linear models. Linear models are models that can be described by the following functional form:</p>
 <p><span class="math">\(\bf{y} = \beta_0 + \beta_1 \bf{x}_1 + \beta_2 \bf{x}_2 + ... + \beta_n \bf{x}_n + \epsilon\)</span>,</p>
 <p>where <span class="math">\(\bf{y}\)</span> denotes the dependent variable or variables (that’s why it’s bold-faced: it could be a vector!) in your experiment. <span class="math">\(\bf{x}_i\)</span> are sets of dependent variables (also, possibly vectors) and <span class="math">\(\beta_i\)</span> are parameters. Finally, <span class="math">\(\epsilon\)</span> is the noise in the experiment. You can also think about <span class="math">\(\epsilon\)</span> as all the things that your model doesn’t know about. For example, in the visual experiment described, changes in participants wakefulness might affect performance in a systematic way, but unless we explicitely measure wakefulness and add it as an independent variable to our analysis (as another <span class="math">\(\bf{x}\)</span>), we don’t know it’s value on each trial and it goes into the noise.</p>
-<p>How do we choose <span class="math">\(beta_i\)</span>?</p>
-<p>There are many things you might do, but a common criterion is to select parameters that reduce the sum of the square errors between the model estimate of the dependent variable, that we will call that we relative to the data (SSE). That is, let:</p>
+<p>All the variables designated as <span class="math">\(\beta_i\)</span> are parameters of the model.</p>
+<h3 id="how-do-we-choose-beta_i">How do we choose <span class="math">\(beta_i\)</span>?</h3>
+<p>There are many things you might do to choose the values of the parameters but a common criterion is to select parameters that reduce the sum of the square of the errors (SSE) between the model estimate of the dependent variable and the values of the depenedent variable that was measured in the data. That is if:</p>
 <p>$SSE = </p>
-<p>And and estimate</p>
-<p>$ = $</p>
-<p>We will want to</p>
-<p>As mentioned before, finding good values for the parameters, <span class="math">\(beta_i\)</span> is called “fitting the model”. It turns out that linear models are easy to fit. Under some fairly generic assumptions (for example that <span class="math">\(\epsilon\)</span> has a zero-mean normal distribution), there is actually an analytic solution to this problem. That is, you can plug it into a formula and get the exact solution: the set of <span class="math">\(\beta\)</span> that give you the smallest SSE between the data you collected and the function defined by the parameters.</p>
+<p>where <span class="math">\(\hat{y}\)</span> is the model estimate of the dependent variable (the “hat” on top of the variable indicates that it is estimated through the model, rather than the one that we measured). Then we will want to find values of the paraemters <span class="math">\(\beta_i\)</span> that bring about the smallest possible value of SSE.</p>
+<p>As mentioned before, finding good values for the parameters, <span class="math">\(beta_i\)</span> is called “fitting the model”. It turns out that linear models are easy to fit. Under some fairly generic assumptions (for example that <span class="math">\(\epsilon\)</span> has a zero-mean normal distribution), there is actually an analytic solution to this problem. That is, you can plug it into a formula and get the exact solution: the set of <span class="math">\(\beta_i\)</span> that give you the smallest SSE between the data you collected and the function defined by the parameters.</p>
 <aside class="callout panel panel-info">
 <div class="panel-heading">
 <h2 id="linearized-models"><span class="glyphicon glyphicon-pushpin"></span>Linearized models</h2>
@@ -54,10 +54,11 @@
 <p>Because linear models are easy to fit, if you can transform your data somehow to get it into a linear form, you should definitely do that.</p>
 </div>
 </aside>
+<h2 id="fitting-a-linear-model-to-psychophysics-data">Fitting a linear model to psychophysics data</h2>
 <p>Let’s fit a linear model to our data. In our case, a linear model would be a straight line in 2D:</p>
 <p><span class="math">\(y = \beta_0 + \beta_1 x\)</span></p>
 <p>Where, <span class="math">\(\beta_0\)</span> is the intercept and <span class="math">\(\beta_1\)</span> is the slope.</p>
-<p>This function is a special case of a larger set of functions called “polynomials” (see below). The <code>numpy</code> library contains a function for fitting of these functions, <code>np.polyfit</code></p>
+<p>This function is a special case of a larger set of functions called “polynomials” (see below). The <code>numpy</code> library contains a function for fitting these functions, <code>np.polyfit</code></p>
 <aside class="callout panel panel-info">
 <div class="panel-heading">
 <h2 id="polynomial-functions"><span class="glyphicon glyphicon-pushpin"></span>Polynomial functions</h2>
@@ -132,6 +133,16 @@ pse_para = (<span class="fl">0.5</span> - beta0_para)/beta1_para</code></pre>
 <img src="img/figure5.png" alt="Model residuals" />
 <p class="caption">Model residuals</p>
 </div>
+<p>Recall that we wanted to find parameters that would minimize the sum of the squared errors (SSE):</p>
+<pre class="sourceCode python"><code class="sourceCode python">
+residuals_ortho = x_ortho - np.polyval((beta1_ortho, beta0_ortho), x_ortho)
+SSE_ortho = np.<span class="dt">sum</span>(residuals_ortho ** <span class="dv">2</span>)
+
+residuals_ortho = x_ortho - np.polyval((beta1_ortho, beta0_ortho), x_ortho)
+SSE_ortho = np.<span class="dt">sum</span>(residuals_para ** <span class="dv">2</span>)</code></pre>
+<p>To summarize: This model seems to capture some aspects of the data rather well. For one, it is monotonically increasing. And the SSE doesn’t seem too bad (though that’s hard to assess just by looking at this number). This model tells us that the PSE is at approximately 0.43 for orthogonal condition and approximately 0.56 for the parallel condition. That is, the contrast in the first interval has to be higher than the contrast in the second interval to appear exactly the same. By how much? For the orthogonal condition it’s about 13% and for the parallel condition it’s about 26% (considering that the comparison contrast is always 30%). This makes sense: more suppression for the parallel relative to the orthogonal condition.</p>
+<p>But there are also a few problems with this model: It seems to miss a lot of the points. That could be because the data is very noisy, but we can see that the model systematically overshoot the fit for high values of x and systematically undershoots for low values of x. If we had more data, we might see this repeatedly, clueing us in that this is not just a matter of the noise in this data. This might indicate to us that another model might be better for this data.</p>
+<p>Finally, another problem is that it seems to produce non-sensical values for some conditions. For example, it sometimes predicts values larger than 1.0 for large contrasts and values smaller than 0.0 for small contrasts. These values are meaningless, because proportion of responses can never be outside the range 0-1. We need to find a different model.</p>
         </div>
       </div>
       </article>
