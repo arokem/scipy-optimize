@@ -59,78 +59,132 @@ $y = \beta_0 + \beta_1 x$
 
 Where, $\beta_0$ is the intercept and $\beta_1$ is the slope.
 
-To fit the model, we'll start using the `scipy` library.
+This function is a special case of a larger set of functions called
+"polynomials" (see below). The `numpy` library contains a function for fitting
+of these functions, `np.polyfit`
 
-## `Scipy`
+> ## Polynomial functions {.callout}
+> This family of functions has the general form:
+>
+> $\beta_0 + \beta_1 x + \beta_2 x^2 + ... \beta_n x^n$
+>
+> where we say that the "degree" of the polynomial is the highest non-zero power
+> of x that is represented in the function. More formally, it is the highest
+> value of n, such that $\beta_n \neq 0$.
 
-This library contains many functions that are useful in a variety of scientific
-computing tasks.
-
-If you import the library, you will see that it is composed of a variety of
-sub-modules, each devoted to a different set of algorithms, or a topic:
-
+The function `np.polyfit` requires three arguments, a vector of x values, a
+vector of y values and an integer, signifying the degree of the polynomial we
+wish to fit.
 
 ~~~ {.python}
-import scipy
-scipy?
-~~~
 
-~~~ {.output}
-
-SciPy: A scientific computing package for Python
-================================================
-
-Documentation is available in the docstrings and
-online at http://docs.scipy.org.
-
-Contents
---------
-SciPy imports all the functions from the NumPy namespace, and in
-addition provides:
-
-Subpackages
------------
-Using any of these subpackages requires an explicit import.  For example,
-``import scipy.cluster``.
-
-::
-
- cluster                      --- Vector Quantization / Kmeans
- fftpack                      --- Discrete Fourier Transform algorithms
- integrate                    --- Integration routines
- interpolate                  --- Interpolation Tools
- io                           --- Data input and output
- linalg                       --- Linear algebra routines
- linalg.blas                  --- Wrappers to BLAS library
- linalg.lapack                --- Wrappers to LAPACK library
- misc                         --- Various utilities that don't have
-                                  another home.
- ndimage                      --- n-dimensional image package
- odr                          --- Orthogonal Distance Regression
- optimize                     --- Optimization Tools
- signal                       --- Signal Processing Tools
- sparse                       --- Sparse Matrices
- sparse.linalg                --- Sparse Linear Algebra
- sparse.linalg.dsolve         --- Linear Solvers
- sparse.linalg.dsolve.umfpack --- :Interface to the UMFPACK library:
-                                  Conjugate Gradient Method (LOBPCG)
- sparse.linalg.eigen          --- Sparse Eigenvalue Solvers
- sparse.linalg.eigen.lobpcg   --- Locally Optimal Block Preconditioned
-                                  Conjugate Gradient Method (LOBPCG)
- spatial                      --- Spatial data structures and algorithms
- special                      --- Special functions
- stats                        --- Statistical Functions
-
-Utility tools
--------------
-::
-
- test              --- Run scipy unittests
- show_config       --- Show scipy build configuration
- show_numpy_config --- Show numpy build configuration
- __version__       --- Scipy version string
- __numpy_version__ --- Numpy version string
+beta_ortho = np.polyfit(x_ortho, y_ortho, 1)
+beta_para = np.polyfit(x_para, y_para, 1)
 
 ~~~
 
-To use any one of these sub-modules, we'll need to import it specifically. 
+Reading the documentation of polyfit, you will learn that this function returns
+a tuple with the beta coefficient values, ordered from the *highest* degree to
+the *lowest* degree.
+
+That is, for the linear (degree=1) function we are fitting here, the slope is
+the first coeffiecient and the intercept of the function is the second
+coefficient in the tuple. To match the notation we used in our equations, we
+can assign as:
+
+~~~ {.python}
+
+beta1_ortho = beta_ortho[0]
+beta0_ortho = beta_ortho[1]
+
+~~~
+
+> ## Python tuples {.callout}
+>
+> Python tuples are a lot like lists, they are ordered sets of items arranged
+> in order. For example:
+>
+> `my_tuple = (1, 2, 3)`
+>
+> The main difference between tuples and lists (you should have seen lists in the [software carpentry python lessons](http://swcarpentry.github.io/python-novice-inflammation/03-lists.html)
+> is that the items in lists can be changed after they are allocated, and
+> tuples are "immutable"
+
+We can also write the above function as follows, splitting the tuple up as it
+comes out of the function:
+
+~~~ {.python}
+
+beta1_ortho, beta0_ortho = np.polyfit(x_ortho, y_ortho, 1)
+beta1_para, beta1_para = np.polyfit(x_para, y_para, 1)
+
+~~~
+
+Note that because these values of $\beta$ are not the "true" values of these
+coefficients and are just estimates based on the sample we've observed, we
+mark them as an estimate by putting a hat on them: $\\hat{beta}$.
+
+The inverse of `np.polyfit` is the function `np.polyval' that takes these values
+$\\hat{beta}$ and values of the independent variable (x), and produces estimated
+values of the dependent variable: $\hat{y}$, according to the polynomial
+function.
+
+We'll estimate this for a broad range of the independent variable, covering the
+full range that was in the measurements:
+
+~~~ {.python}
+x = np.linspace(0, 1, 100)  # What does linspace do?
+y_ortho_hat = np.polyval((beta1_ortho, beta0_ortho), x)
+y_para_hat = np.polyval((beta1_para, beta0_para), x)
+
+~~~
+
+Let's visualize the result of this:
+
+~~~ {.python}
+
+fig, ax = plt.subplots(1)
+ax.plot(x, y_ortho_hat)
+ax.plot(x_ortho, y_ortho, 'bo')
+ax.plot(x, y_para_hat)
+ax.plot(x_para, y_para, 'go')
+
+ax.set_xlabel('Contrast 1')
+ax.set_ylabel('Proportion responses `1`')
+ax.grid('on')
+fig.set_size_inches([8,8])
+
+~~~
+
+![Linear models of the data](img/figure3.png)
+
+Recall that we wanted to know the value of the PSE for the two conditions. That
+is the value of x for which $\hat{y} = 0.5$. For example, for the orthogonal
+surround condition:
+
+![Model estimate of PSE](img/figure4.png)
+
+
+In this case, we'll need to do a little bit of algebra. We set y=0.5, and solve
+for x:
+
+$0.5 = \beta_0 + \beta_1 x$
+
+$ \Rightarrow 0.5 - \beta_0 = \beta_1 x$
+
+$ \Rightarrow x = \frac{0.5- \beta_0}{\beta1}$
+
+Or in code:
+
+~~~ {.python}
+
+pse_ortho = (0.5 - beta0_ortho)/beta1_ortho
+pse_para = (0.5 - beta0_para)/beta1_para
+
+~~~
+
+## Evaluating models
+
+How good is the model? Let's look at the model "residuals", the difference between the model and the measured data:
+
+![Model residuals](img/figure5.png)

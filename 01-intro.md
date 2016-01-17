@@ -8,6 +8,7 @@ minutes: 10
 > ## Learning Objectives {.objectives}
 >
 > * Learners can define what a model is.
+> * Learners can define model parameters and model fitting.
 > * Learners can restate the benefits of modeling
 > * Learners can explain the utility of modeling applied to their data.
 
@@ -83,6 +84,9 @@ and the responses as the dependent variables.
 
 ~~~ {.python}
 
+import matplotlib.pyplot as plt
+import numpy as np
+%matplotlib inline
 fig, ax = plt.subplots(1)
 # We apply a small vertical jitter to each point, just to show that there are
 # multiple points at each location:
@@ -95,6 +99,9 @@ ax.set_xlabel('Contrast 1')
 ax.set_ylabel('Which stimulus had higher contrast? (1 or 2)')
 
 ~~~
+
+![](img/figure1.png)
+
 
 There seems to be a trend in the data: the larger the contrast in the first
 interval, the more likely the subject was to press the '1' button. That's a
@@ -170,6 +177,8 @@ fig.set_size_inches([8,8])
 
 ~~~
 
+![](img/figure2.png)
+
 Obviously there is a systematic relationship between the contrast and the
 chances that this subject thought that the first interval had the higher
 contrast. For example, when the contrast was much higher in interval 1 (e.g.
@@ -185,16 +194,23 @@ known as the point of subjective equality (or PSE) and we can use it to compare
 different conditions in this experiment and in other experiments, compare
 different participants, etc.
 
-In order to derive this quantity, we will have to fit a model to the data.
+In order to derive this quantity, or other quantities we approximate the data
+with a continuous function. Given this function, we can ask what is the x value
+of the function that corresponds to a y of exactly 0.5? This function is what we
+will call here a "model". These functions usually describe the relationship
+between dependent and independent variables through a set of some other
+variables that we will call "model parameters". The computational process of
+finding the values of the paramters that provide values of the model that
+most accurately approximate the data is what we will call "model fitting".
 
-> ## Contrast and surround suppression {.callout}
-
+> ## A caveat about this data {.callout}
 > If were doing this in earnest, we would take into account the number of
 > trials that was performed at each contrast (especially given that there are
 > more trials in some conditions). For the purpose of this lesson, we will
-> ignore that, and leave it as an exercise for the reader.
+> ignore that, and leave it as an exercise for the reader: to extend the
+> methods shown here to account for these differences.
 
-### Models and why we like them
+### Why do we like models?
 
 Models derived from data are useful for several reasons:
 
