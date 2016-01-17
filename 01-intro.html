@@ -32,6 +32,7 @@
 <div class="panel-body">
 <ul>
 <li>Learners can define what a model is.</li>
+<li>Learners can define model parameters and model fitting.</li>
 <li>Learners can restate the benefits of modeling</li>
 <li>Learners can explain the utility of modeling applied to their data.</li>
 </ul>
@@ -66,6 +67,9 @@ ortho = mlab.csv2rec(<span class="st">&#39;scipy-optimize-data/ortho.csv&#39;</s
 para = mlab.csv2rec(<span class="st">&#39;scipy-optimize-data/para.csv&#39;</span>)</code></pre>
 <p>If you take a look at the data you will see that the contrast in the second interval was always 0.3 (30% contrast). That’s because this stimulus served as a reference stimulus, to help participants as an anchor. In other experiments, we also varied that, but, for the purpose for our analysis here, we can safely ignore that column altogether and only look at the contrast in the first interval. Let’s take a look at the data. First, we are just going to plot the raw data as it is. We will consider the contrasts as our independent variable, and the responses as the dependent variables.</p>
 <pre class="sourceCode python"><code class="sourceCode python">
+<span class="ch">import</span> matplotlib.pyplot <span class="ch">as</span> plt
+<span class="ch">import</span> numpy <span class="ch">as</span> np
+%matplotlib inline
 fig, ax = plt.subplots(<span class="dv">1</span>)
 <span class="co"># We apply a small vertical jitter to each point, just to show that there are</span>
 <span class="co"># multiple points at each location:</span>
@@ -76,6 +80,10 @@ ax.plot(para[<span class="st">&#39;contrast1&#39;</span>], para[<span class="st"
 ax.set_ylim([<span class="fl">0.9</span>, <span class="fl">2.1</span>])
 ax.set_xlabel(<span class="st">&#39;Contrast 1&#39;</span>)
 ax.set_ylabel(<span class="st">&#39;Which stimulus had higher contrast? (1 or 2)&#39;</span>)</code></pre>
+<div class="figure">
+<img src="img/figure1.png" />
+
+</div>
 <p>There seems to be a trend in the data: the larger the contrast in the first interval, the more likely the subject was to press the ‘1’ button. That’s a reasonable thing to do, but it’s hard to see and hard to quantify in this form. Instead, we will transform this data into a plot in which the independent variable is the contrast in interval 1 and the dependent variable is the proportion of trials for which the subject pressed the ‘1’ key for each contrast. Let’s define a function that will do that for us:</p>
 <pre class="sourceCode python"><code class="sourceCode python">
 <span class="kw">def</span> transform_data(data):
@@ -128,21 +136,22 @@ ax.set_ylim([-<span class="fl">0.1</span>, <span class="fl">1.1</span>])
 ax.set_xlim([-<span class="fl">0.1</span>, <span class="fl">1.1</span>])
 ax.grid(<span class="st">&#39;on&#39;</span>)
 fig.set_size_inches([<span class="dv">8</span>,<span class="dv">8</span>])</code></pre>
-<p>Obviously there is a systematic relationship between the contrast and the chances that this subject thought that the first interval had the higher contrast. For example, when the contrast was much higher in interval 1 (e.g. 0.9), this person never said that the second interval had higher contrast. Likewise, when the contrast was very low, this person almost never said that the contrast in interval 1 had been higher. In the middle, there seems to be a monotonic relationship between the variables. Also, notice that the two sets of data (orthogonal and parallel) seem to be slightly different.</p>
-<p>Can we say something more precise? For example, we might be interested in the contrast for which answers of ‘1’ and answers of ‘2’ are equally likely. This is known as the point of subjective equality (or PSE) and we can use it to compare different conditions in this experiment and in other experiments, compare different participants, etc.</p>
-<p>In order to derive this quantity, we will have to fit a model to the data.</p>
-<aside class="callout panel panel-info">
-<div class="panel-heading">
-<h2 id="contrast-and-surround-suppression-1"><span class="glyphicon glyphicon-pushpin"></span>Contrast and surround suppression</h2>
-</div>
-<div class="panel-body">
+<div class="figure">
+<img src="img/figure2.png" />
 
 </div>
+<p>Obviously there is a systematic relationship between the contrast and the chances that this subject thought that the first interval had the higher contrast. For example, when the contrast was much higher in interval 1 (e.g. 0.9), this person never said that the second interval had higher contrast. Likewise, when the contrast was very low, this person almost never said that the contrast in interval 1 had been higher. In the middle, there seems to be a monotonic relationship between the variables. Also, notice that the two sets of data (orthogonal and parallel) seem to be slightly different.</p>
+<p>Can we say something more precise? For example, we might be interested in the contrast for which answers of ‘1’ and answers of ‘2’ are equally likely. This is known as the point of subjective equality (or PSE) and we can use it to compare different conditions in this experiment and in other experiments, compare different participants, etc.</p>
+<p>In order to derive this quantity, or other quantities we approximate the data with a continuous function. Given this function, we can ask what is the x value of the function that corresponds to a y of exactly 0.5? This function is what we will call here a “model”. These functions usually describe the relationship between dependent and independent variables through a set of some other variables that we will call “model parameters”. The computational process of finding the values of the paramters that provide values of the model that most accurately approximate the data is what we will call “model fitting”.</p>
+<aside class="callout panel panel-info">
+<div class="panel-heading">
+<h2 id="a-caveat-about-this-data"><span class="glyphicon glyphicon-pushpin"></span>A caveat about this data</h2>
+</div>
+<div class="panel-body">
+<p>If were doing this in earnest, we would take into account the number of trials that was performed at each contrast (especially given that there are more trials in some conditions). For the purpose of this lesson, we will ignore that, and leave it as an exercise for the reader: to extend the methods shown here to account for these differences.</p>
+</div>
 </aside>
-<blockquote>
-<p>If were doing this in earnest, we would take into account the number of trials that was performed at each contrast (especially given that there are more trials in some conditions). For the purpose of this lesson, we will ignore that, and leave it as an exercise for the reader.</p>
-</blockquote>
-<h3 id="models-and-why-we-like-them">Models and why we like them</h3>
+<h3 id="why-do-we-like-models">Why do we like models?</h3>
 <p>Models derived from data are useful for several reasons:</p>
 <ul>
 <li><p><strong>They allow you to explain the data you have</strong>: summary statistics of the data, such as the mean of some variable, or the variance of this variable, are often not the best explanation of the data you have observed, in terms of the theory. For example, in the data we have observed in our experiment, a useful quantity is the PSE, which telss us what the perceived contrast of the surrounding grating was. This quantity is not readily present in summary statistics of the data. A functional form of a model is a mathematical formula that relates systematic changes in measured dependent variables, based on experimental manipulations of the independent variables. The functional form of the model varies with changes in model parameters. In the typical case, parameters are variables specificied in the model, that are neither your dependent variables nor your independent variables. If the model parameters correspond to theoretically meaningful quantities (such as the PSE), that can make the model useful in explaining the data and help test hypotheses about the theory behind the experiment.</p></li>

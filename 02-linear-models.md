@@ -29,24 +29,26 @@ $\bf{x}$), we don't know it's value on each trial and it goes into the noise.
 
 How do we choose $beta_i$?
 
-Selecting a value for the parameters, $beta_i$ is called "fitting the model".
-You might , but a common criterion is to select parameters that reduce the sum
-of the square errors, relative to the data (SSE). That is, let:
+There are many things you might do, but a common criterion is to select
+parameters that reduce the sum of the square errors between the model estimate
+of the dependent variable, that we will call  that we relative to the data (SSE). That is, let:
 
 $SSE = \sum{(y - \hat{y})^2}
 
-And:
+And and estimate
 
 $\hat{y} = $
 
 We will want to
 
-It turns out that linear models are easy to fit. Under some fairly generic
-assumptions (for example that $\epsilon$ has a zero-mean normal distribution),
-there is actually an analytic solution to this problem. That is, you can plug it
-into a formula and get the exact solution: the set of $\beta$ that give you the
-smallest SSE between the data you collected and the function defined by the
-parameters.
+
+As mentioned before, finding good values for the parameters, $beta_i$ is called
+"fitting the model". It turns out that linear models are easy to fit. Under some
+fairly generic assumptions (for example that $\epsilon$ has a zero-mean normal
+distribution), there is actually an analytic solution to this problem. That is,
+you can plug it into a formula and get the exact solution: the set of $\beta$
+that give you the smallest SSE between the data you collected and the function
+defined by the parameters.
 
 > ## Linearized models {.callout}
 >  Because linear models are easy to fit, if you can transform your data somehow
