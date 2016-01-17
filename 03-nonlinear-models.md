@@ -175,11 +175,11 @@ Let's plot a few exemplars of this function, just to get a feel for them:
 ~~~ {.python}
 
 fig, ax = plt.subplots(1)
-ax.plot(x, cumgauss(x, 0.5, 0.25), label=r'$\mu=0, \sigma=0.25$')
-ax.plot(x, cumgauss(x, 0.5, 0.5), label=r'$\mu=0, \sigma=0.5$')
-ax.plot(x, cumgauss(x, 0.5, 0.75), label=r'$\mu=0, \sigma=0.75$')
-ax.plot(x, cumgauss(x, 0.3, 0.25), label=r'$\mu=0.3, \sigma=0.25$')
-ax.plot(x, cumgauss(x, 0.7, 0.25), label=r'$\mu=0.3, \sigma=0.25$')
+ax.plot(x, cumgauss(x, 0.5, 0.25), label='mu=0, sigma=0.25')
+ax.plot(x, cumgauss(x, 0.5, 0.5), label='mu=0, sigma=0.5')
+ax.plot(x, cumgauss(x, 0.5, 0.75), label='mu=0, sigma=0.75')
+ax.plot(x, cumgauss(x, 0.3, 0.25), label='mu=0.3, sigma=0.25')
+ax.plot(x, cumgauss(x, 0.7, 0.25), label='mu=0.3, sigma=0.25')
 ax.set_ylim([-0.1, 1.1])
 ax.set_xlim([-0.1, 1.1])
 ax.grid('on')
@@ -187,3 +187,5 @@ fig.set_size_inches([8,8])
 plt.legend(loc='lower right')
 
 ~~~
+
+![Cumulative Gaussian functions](img/figure6.png)
