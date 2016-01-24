@@ -58,8 +58,10 @@ to data.
 
 ## Topics
 
-1.  [Topic Title 1](01-intro.html)
-2.  [Topic Title 2](02-linear-models.html)
+1.  [Introduction: models and why we like them](01-intro.html)
+2.  [Linear models](02-linear-models.html)
+3.  [Nonlinear models and optimization](03-nonlinear-models.html)
+4.  [Model evaluation with cross-validation](04-cross-validation.html)
 
 ## Other Resources
 
