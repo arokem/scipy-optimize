@@ -25,19 +25,30 @@
         <div class="col-md-10 col-md-offset-1">
                     <h1 class="title">Non-linear Models</h1>
           <h1 id="non-linear-models">Non-linear models</h1>
-<p>Unfortunately, linear models don’t always fit our data. As shown before, they might produce large and systematic fit error, or they might produce values that don’t make sense. In these cases, we might need to fit a non-linear model to our data. Non-linear models cannot be described as above and are generally described by the following functional form:</p>
+<section class="objectives panel panel-warning">
+<div class="panel-heading">
+<h2 id="learning-objectives"><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
+</div>
+<div class="panel-body">
+<ul>
+<li>Learners can identify a nonlinear model, and discuss the differences between linear and nonlinear models</li>
+<li>Learners can use <code>scipy.optimize</code> to fit a nonlinear model to data.</li>
+<li>Learners can calculate and display model residuals for nonlinear models</li>
+</ul>
+</div>
+</section>
+<p>Unfortunately, linear models don’t always fit our data. As shown before, they might produce large and systematic fit error, or they might produce parameter values that don’t make sense. In these cases, we might need to fit a non-linear model to our data. Non-linear models are mathematically expressed as:</p>
 <p><span class="math">\(\bf{y} = f(\bf{x}_1, \bf{x}_2, ... \bf{x}_n, \bf{\beta}) + \epsilon\)</span>,</p>
-<p>Where <span class="math">\(f()\)</span> can be almost any function you can think of that takes <span class="math">\(x\)</span>’s and <span class="math">\(\beta\)</span>’s as input. The problem is that, in contrast to the linear models, there is no formula that you can just plug your function into and derive the values of the parameters.</p>
-<p>One way to find the value of the parameters for a given functional form is to use optimization. In this process, the computer systematically tries out different values of <span class="math">\(\beta\)</span> and finds a set of these values that minimizes the SSE relative to the data.</p>
+<p>Where <span class="math">\(f()\)</span> can be almost any function you can think of that takes <span class="math">\(x\)</span>’s and <span class="math">\(\beta\)</span>’s as input. The problem is that, in contrast to the linear models, there is no formula that you can just plug your function and data into and derive the values of the parameters.</p>
+<p>One way to find the value of the parameters for a given model is to use optimization. In this process, the computer systematically tries out different values of <span class="math">\(\beta\)</span> and finds a set of these values that minimizes the SSE relative to the data.</p>
 <aside class="callout panel panel-info">
 <div class="panel-heading">
 <h2 id="optimization"><span class="glyphicon glyphicon-pushpin"></span>Optimization</h2>
 </div>
 <div class="panel-body">
-<p>Is a very large and very active research field. There are many different optimization algorithms and we will use one, a variant of the Levenberg-Marquardt algorithm.</p>
+<p>Optimization s a very large and very active research field. There are many different optimization algorithms and we will use one, a variant of the Levenberg-Marquardt algorithm, implemented in <code>scipy.optimize</code> as <code>curve_fit</code>.</p>
 </div>
 </aside>
-<p>For optimization, we’ll use a function that is implemented in <code>scipy.optimize</code> as <code>leastsq</code>.</p>
 <h1 id="introducing-scipy">Introducing <code>scipy</code></h1>
 <p>The <code>scipy</code> library contains many functions that are useful in a variety of scientific computing tasks.</p>
 <p>If you import the library, you will see that it is composed of a variety of sub-modules, each devoted to a different set of algorithms, or a topic:</p>
@@ -102,9 +113,11 @@ Utility tools
 <p>To use any one of these sub-modules, we’ll need to import it specifically.</p>
 <p>For example:</p>
 <pre class="sourceCode python"><code class="sourceCode python">
-<span class="ch">from</span> scipy <span class="ch">import</span> optimize</code></pre>
-<p>Having said that, let’s now consider the steps you will need to take in fitting a non-linear model.</p>
-<h2 id="step-1-define-the-function">Step 1 : define the function</h2>
+<span class="ch">from</span> scipy <span class="ch">import</span> optimize <span class="ch">as</span> opt</code></pre>
+<p>This module contains many functions that deal with various optimization tasks and implement many different algorithms for optimization. We’ll focus here on one of these functions, <code>curve_fit</code>, which systemtatically searches for the parameters that mimize the squared errors of a function relative to data.</p>
+<h2 id="optimization-in-practice">Optimization in practice</h2>
+<p>Let’s now consider the steps you will need to take in fitting a non-linear model.</p>
+<h3 id="defining-the-model">Defining the model</h3>
 <p>To perform optimization, we need to define the functional form of our model. For this kind of data, a common model to use (e.g in <a href="http://ww.journalofvision.org/content/2/3/4.full">work by Yu and Levi</a>) is a cumulative Gaussian function. The Gaussian distribution is parameterized by 2 numbers, the mean and the variance, so as in the linear model shown above, this model has 2 parameters:</p>
 <p><span class="math">\(y(x) = \frac{1}{2}[1 + erf(\frac{x-\mu}{\sigma \sqrt{2} })]\)</span>,</p>
 <p>where <span class="math">\(erf\)</span> is the so-called ‘error function’, that is implemented in <code>scipy.special</code> (<code>from scipy import special</code>).</p>
@@ -155,6 +168,24 @@ plt.legend(loc=<span class="st">&#39;lower right&#39;</span>)</code></pre>
 <img src="img/figure6.png" alt="Cumulative Gaussian functions" />
 <p class="caption">Cumulative Gaussian functions</p>
 </div>
+<h3 id="optimizing-and-finding-the-parameters">Optimizing and finding the parameters</h3>
+<p>To find the best parameters for the data, we will use the <code>curve_fit</code> function. This function takes as input a function, and data:</p>
+<pre class="sourceCode python"><code class="sourceCode python">
+params_ortho, cov_ortho = opt.curve_fit(cumgauss, x_ortho, y_ortho)</code></pre>
+<p>The first output are the parameters, and the second output is the covariance of the parameters. This might be useful to know, but using the covariance is beyond the scope of this lesson.</p>
+<p>As with the linear model, we would like to see how well the data fits the model.</p>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="non-linear-model-fit"><span class="glyphicon glyphicon-pencil"></span>Non-linear model fit</h2>
+</div>
+<div class="panel-body">
+<ol style="list-style-type: decimal">
+<li>Write the code that plots the model estimate and the actual data.</li>
+<li>Calculate the residuals and SSE of this model.</li>
+<li>What is the PSE of this model for both conditions (orthogonal and parallel)? Is this model better than the linear model?</li>
+</ol>
+</div>
+</section>
         </div>
       </div>
       </article>

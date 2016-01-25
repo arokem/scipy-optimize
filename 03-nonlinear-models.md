@@ -6,29 +6,35 @@ minutes: 10
 
 # Non-linear models
 
-Unfortunately, linear models don't always fit our data. As shown before, they might produce large and systematic fit error, or they might produce values that don't make sense. In these cases, we might need to fit a non-linear model to our data. Non-linear models cannot be described as above and are generally described by the following functional form:
+> ## Learning Objectives {.objectives}
+>
+> * Learners can identify a nonlinear model, and discuss the differences between linear and nonlinear models
+> * Learners can use `scipy.optimize` to fit a nonlinear model to data.
+> * Learners can calculate and display model residuals for nonlinear models
+
+Unfortunately, linear models don't always fit our data. As shown before, they
+might produce large and systematic fit error, or they might produce parameter
+values that don't make sense. In these cases, we might need to fit a non-linear
+model to our data. Non-linear models are mathematically expressed as:
 
 $\bf{y} = f(\bf{x}_1, \bf{x}_2, ... \bf{x}_n, \bf{\beta}) + \epsilon$,
 
 Where $f()$ can be almost any function you can think of that takes $x$'s and
 $\beta$'s as input. The problem is that, in contrast to the linear models, there
-is no formula that you can just plug your function into and derive the values of
-the parameters.
+is no formula that you can just plug your function and data into and derive the
+values of the parameters.
 
-One way to find the value of the parameters for a given functional form is to
-use optimization. In this process, the computer systematically tries out
-different values of $\beta$ and finds a set of these values that minimizes the
-SSE relative to the data.
-
+One way to find the value of the parameters for a given model is to use
+optimization. In this process, the computer systematically tries out different
+values of $\beta$ and finds a set of these values that minimizes the SSE
+relative to the data.
 
 > ## Optimization {.callout}
 >
-> Is a very large and very active research field. There are many different
-> optimization algorithms and we will use one, a variant of the
-> Levenberg-Marquardt algorithm.
-
-For optimization, we'll use a function that is implemented in `scipy.optimize`
-as `leastsq`.
+> Optimization s a very large and very active research field. There are many
+> different optimization algorithms and we will use one, a variant of the
+> Levenberg-Marquardt algorithm, implemented in `scipy.optimize`
+> as `curve_fit`.
 
 # Introducing `scipy`
 
@@ -110,14 +116,21 @@ For example:
 
 ~~~ {.python}
 
-from scipy import optimize
+from scipy import optimize as opt
 
 ~~~
 
-Having said that, let's now consider the steps you will need to take in
-fitting a non-linear model.
+This module contains many functions that deal with various optimization tasks
+and implement many different algorithms for optimization. We'll focus here on
+one of these functions, `curve_fit`, which systemtatically searches for the
+parameters that mimize the squared errors of a function relative to data.
 
-## Step 1 : define the function
+## Optimization in practice
+
+Let's now consider the steps you will need to take in fitting a non-linear
+model.
+
+### Defining the model
 
 To perform optimization, we need to define the functional form of our model. For
 this kind of data, a common model to use (e.g in [work by Yu and
@@ -189,3 +202,27 @@ plt.legend(loc='lower right')
 ~~~
 
 ![Cumulative Gaussian functions](img/figure6.png)
+
+### Optimizing and finding the parameters
+
+To find the best parameters for the data, we will use the `curve_fit` function.
+This function takes as input a function, and data:
+
+~~~ {.python}
+
+params_ortho, cov_ortho = opt.curve_fit(cumgauss, x_ortho, y_ortho)
+
+~~~
+
+The first output are the parameters, and the second output is the covariance
+of the parameters. This might be useful to know, but using the covariance is
+beyond the scope of this lesson.
+
+As with the linear model, we would like to see how well the data fits the model.
+
+> ## Non-linear model fit  {.challenge}
+>
+> 1. Write the code that plots the model estimate and the actual data.
+> 2. Calculate the residuals and SSE of this model.
+> 3. What is the PSE of this model for both conditions (orthogonal
+>    and parallel)? Is this model better than the linear model?

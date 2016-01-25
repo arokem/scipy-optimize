@@ -10,7 +10,7 @@ minutes: 10
 >
 > * Learners can identify a linear model.
 > * Learners can use `numpy` to fit a linear model to data
-> * Leaners can evaluate a model using model residuals.
+> * Learners can evaluate a model using model residuals.
 
 The main distinction we will make in this lesson is between linear models and
 non-linear models. Linear models are models that can be described by the
