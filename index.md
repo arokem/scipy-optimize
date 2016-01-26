@@ -1,6 +1,6 @@
 ---
 layout: lesson
-title: Lesson Title
+title: Fitting models with `scipy.optimize`
 ---
 
 Fitting models and testing the match of the models to the measured data is a
