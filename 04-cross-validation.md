@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Model evaulation with cross-validation
-minutes: 10
+minutes: 45
 ---
 
 # Model evaluation with cross-validation
@@ -147,5 +147,95 @@ That is, it bends to match not only the large-scale trends in the data, but also
 the noise associated with each data point. This match to the noise that
 characterizes the sample is called "overfitting".
 
+Overfitting generally becomes worse as a model becomes more flexible. This can
+roughly be quantified by the number of parameters in the model. That is, a
+polynomial of degree 6 will always fit the data more accurately than a
+polynomial of degree 5, if only because of overfitting to the noise in the
+sample.
 
-## How to deal with overfitting, while allowing maximal model flexibility
+> ## The bias-variance tradeoff {.callout}
+>
+>  The tradeoff between different levels of model complexity and different
+> sources of error is known as the bias-variance tradeff. We will not go into
+> more detailed explanations of this tradeoff here, but Scott Fortmann-Roe wrote
+> an [essay](http://scott.fortmann-roe.com/docs/BiasVariance.html) that
+> elegantly demonstrates the concepts invloved, and offers additional reading.
+
+
+> ## Formal/paramteric model selection {.callout}
+>
+> An F-test can be used to compare models that are *nested*. That is, a model in
+> which an additional set of (one or more) parameters is added to an existing
+> model. In addition, a few metrics have been developed to compare different
+> models (also models that are not nested) based on the SSE and the number of
+> parameters. [These](http://en.wikipedia.org/wiki/Bayesian_information_criterion)
+> [metrics](http://en.wikipedia.org/wiki/Akaike_information_criterion) generally
+> penalize a model for having many parameters and reward it for getting small
+> SSE. However, these methods generally have some underlying assumptions and are
+> not that transparent to understand. For a nice exposition on how to use these
+> methods see [this paper]() (excuse the paywall...). Also, if you are
+> interested in more on this topic, [This discussion] (http://stats.stackexchange.com/questions/20729/best-approach-for-model-selection-bayesian-or-cross-validation) on
+> the stats stack exchange website is an excellent resource.
+
+
+## Overcoming overfitting -- model selection with cross-validation
+
+One strategy to overcome overfitting is by separating the noise in the data used
+to fit the model from the noise in the data used to evaluate the model. This is
+called "cross-validation". We fit the model to one sample, and then evaluate it
+on another. If we haven't collected two separate samples, it might still be safe
+to assume that the noise in every individual observation (in the case of these
+experiments, each trial) is independent, and we can generate two samples by
+splitting the data up into sub-samples. There are different ways to split up the
+data, but in this case it makes sense to separately look at odd trials and at
+even trials, minimizing serial order effects (such as how tired the person got).
+
+We refer to the sample used for fitting the model as the "training set". Using
+the training set, we find the parameters of the model
+
+~~~ {.python}
+
+ortho_1 = ortho[::2]
+x_ortho_1, y_ortho_1, n_ortho_1 = transform_data(ortho_train)
+params_ortho_1, cov_ortho_1 = opt.curve_fit(cumgauss, x_ortho_1, y_ortho_1)
+
+~~~
+
+The left-out sample is called the "testing set". We use this sample to calculate
+the error:
+
+~~~ {.python}
+
+ortho_2 = ortho[1::2]
+x_ortho_2, y_ortho_2, n_ortho_2 = transform_data(ortho_train)
+SSE_ortho_2 = np.sum((cumgauss(x_ortho_2, params_ortho_1[0], params_ortho_1[1]) - y_ortho_2) ** 2)
+
+~~~
+
+In order for this to be cross-validation, we would want to also do it the other
+way around: use set \#2 as the training set and evaluate on the set \#1 as the
+testing set:
+
+~~~ {.python}
+
+params_ortho_2, cov_ortho_2 = opt.curve_fit(cumgauss, x_ortho_2, y_ortho_2)
+SSE_ortho_1 = np.sum((cumgauss(x_ortho_1, params_ortho_2[0], params_ortho_2[1]) - y_ortho_1) ** 2)
+
+~~~
+
+To evaluate model over all
+
+> ## K-fold cross-validation {.callout}
+>
+> This type of cross-validation is a special case of what we call "k-fold"
+> cross-validation. In each iteration of this procedure $\frac{1/k}$ of the data
+> is left out for evaulation and the remaining data is used for training. In
+> this case, we are using 2-fold cross-validation, or what is sometimes called >
+> "split-half cross-validation"
+
+
+> ## Cross-validation  {.challenge}
+>
+> 1. Write the code to cross-validate the parallel condition (bonus points if
+> you write a function that can do both without changes!)
+> 2. Evaluate the Weibull model as well. Which model do you think is better?

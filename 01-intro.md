@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Introduction
-minutes: 10
+minutes: 20
 ---
 # Introduction: models and why we like them
 

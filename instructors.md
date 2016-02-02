@@ -3,28 +3,8 @@ layout: page
 title: Lesson Title
 subtitle: Instructor's Guide
 ---
-## Overall
 
-* Point
-
-* Point
-
-## [Topic Title 1](01-slug.html)
-
-* Point
-
-* Point
-
-1.  Discussion of first challenge.
-
-2.  Discussion of second challenge.
-
-## [Topic Title 2](02-slug.html)
-
-* Point
-
-* Point
-
-1.  Discussion of first challenge.
-
-2.  Discussion of second challenge.
+## [Introduction: models and why we like them](01-intro.html)
+## [Linear models](02-linear-models.html)
+## [Nonlinear models and optimization](03-nonlinear-models.html)
+## [Model evaluation with cross-validation](04-cross-validation.html)

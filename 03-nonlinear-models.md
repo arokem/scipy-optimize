@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Non-linear Models
-minutes: 10
+minutes: 35
 ---
 
 # Non-linear models

@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Linear Models
-minutes: 10
+minutes: 35
 ---
 
 # Linear models.
