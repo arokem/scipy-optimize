@@ -56,3 +56,6 @@ runs. This can be done by using the `p0` key word argument when calling
 
 Cross-validation allows you to compare the accuracy of models that are very
 different from each other.
+
+For further readings on this topic, please go to the [reference](reference.html)
+section of this lesson.
