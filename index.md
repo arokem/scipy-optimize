@@ -62,6 +62,7 @@ to data.
 2.  [Linear models](02-linear-models.html)
 3.  [Nonlinear models and optimization](03-nonlinear-models.html)
 4.  [Model evaluation with cross-validation](04-cross-validation.html)
+5.  [Summary](05-summary.html)
 
 ## Other Resources
 
