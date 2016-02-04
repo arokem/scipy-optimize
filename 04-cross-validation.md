@@ -9,7 +9,7 @@ minutes: 45
 > ## Learning Objectives {.objectives}
 >
 > * Learners can define and identify overfitting.
-> * Learners can use split-half cross-validation to evaluate model error.
+> * Learners can implement split-half cross-validation to evaluate model error.
 
 How do we know that a model is *good enough*?
 
@@ -239,3 +239,7 @@ To evaluate model over all
 > 1. Write the code to cross-validate the parallel condition (bonus points if
 > you write a function that can do both without changes!)
 > 2. Evaluate the Weibull model as well. Which model do you think is better?
+
+Next, let's summarize the points we learned. We'll also see a list of resources for further learning about the topics we discussed.
+
+[Click here for the next section](05-summary.html).

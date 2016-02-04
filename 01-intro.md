@@ -249,3 +249,8 @@ Models derived from data are useful for several reasons:
 >
 > Give an example of data that you use in your research and a model applied to
 > the data.
+
+In the following two sections, we will separately discuss linear models, and
+contrast these with non-linear models.
+
+[Click here for the next section](02-linear-models.html).

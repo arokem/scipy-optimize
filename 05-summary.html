@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="generator" content="pandoc">
+    <title>Summary</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="css/swc.css" />
+    <meta charset="UTF-8" />
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body class="lesson">
+    <div class="container card">
+      <div class="banner">
+      
+      </div>
+      <article>
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+                    <h1 class="title">Summary</h1>
+          <h3 id="models-are-useful">Models are useful!</h3>
+<p>They summarize our data and allow us to explain it (build theories).</p>
+<p>They allow us to predict what future data might look like.</p>
+<aside class="callout panel panel-info">
+<div class="panel-heading">
+<h2 id="cross-validation-and-prediction"><span class="glyphicon glyphicon-pushpin"></span>Cross-validation and prediction</h2>
+</div>
+<div class="panel-body">
+<p>Accuracy in cross-prediction is sometimes called predictive accuracy, because it tells us how accurate the model would be for samples that we did not use in fitting the model. In that sense, it is a test of the model on data that we haven’t seen yet. May as well be in the future!</p>
+</div>
+</aside>
+<h2 id="linear-models-are-easy-to-fit.">Linear models are easy to fit.</h2>
+<p>If you can get away with a linear model, you should!</p>
+<h2 id="non-linear-models-are-really-not-that-hard-except-when-they-are.">Non-linear models are really not that hard (except when they are).</h2>
+<p>An important difference is the time it takes to fit a linear model (fast, usually), relative to non-linear model (usually slow). This might become crucial, if you have a lot of data.</p>
+<p>Non-linear models are almost arbitrarily flexible, but very flexible models might also be <strong>under-determined</strong>: this means that several different settings of the parameters set the model to be almost equally accurate. Leo Breiman calls this the “Rashomon effect”.</p>
+<p>Another thing to beware are so-called <strong>local minima</strong>. These are settings of parameters that seem good, but only because all setting that are similar worse. There might be a global minimum that is even better.</p>
+<div class="figure">
+<img src="img/figure10.png" alt="Local and global minima" />
+<p class="caption">Local and global minima</p>
+</div>
+<p>One way to overcome local minima is by running the model fit several times with different initial conditions, finding the least error in all the different runs. This can be done by using the <code>p0</code> key word argument when calling <code>opt.curve_fit</code>.</p>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="default-values"><span class="glyphicon glyphicon-pencil"></span>Default values</h2>
+</div>
+<div class="panel-body">
+<ol style="list-style-type: decimal">
+<li>What is the default value of <code>p0</code>?</li>
+<li>Is it different when you use <code>opt.curve_fit</code> with <code>cumgauss</code> and when you use it with <code>weibull</code>?</li>
+<li>Write a function that performs “grid search” in the space of the parameters of the cumulative Gaussian function, sampling all parts of the space of possible parameters.</li>
+</ol>
+</div>
+</section>
+<h2 id="check-your-model-accuracy">Check your model accuracy!</h2>
+<p>Cross-validation allows you to compare the accuracy of models that are very different from each other.</p>
+        </div>
+      </div>
+      </article>
+      <div class="footer">
+        <a class="label swc-blue-bg" href="https://github.com/arokem/scipy-optimize">Source</a>
+        <a class="label swc-blue-bg" href="mailto:arokem@gmail.com">Contact</a>
+        <a class="label swc-blue-bg" href="LICENSE.html">License</a>
+      </div>
+    </div>
+    <!-- Javascript placed at the end of the document so the pages load faster -->
+    <script src="http://software-carpentry.org/v5/js/jquery-1.9.1.min.js"></script>
+    <script src="css/bootstrap/bootstrap-js/bootstrap.js"></script>
+    <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+  </body>
+</html>

@@ -9,14 +9,17 @@ Additional reading:
 
 Data analysis recipes: Fitting a model to data, Hogg et al.:  http://arxiv.org/abs/1008.4686
 
-An Introduction to Statistical Learning with Applications in R, by Gareth James,
+[An Introduction to Statistical Learning with Applications in R](http://www-bcf.usc.edu/~gareth/ISL/), by Gareth James,
 Daniela Witten, Trevor Hastie and Robert Tibshirani contains additional learning
 on statistical and machine learning, including topics such as cross-validation.
-The book is also accompanied by code written in R: http://www-bcf.usc.edu/~gareth/ISL/
+The book is also accompanied by code written in R.
 
-The Elements of Statistical Learning, by Trevor Hastie, Robert Tisbshirani and
-Jerome Friedman is a more heavily mathematical treatment of similar topics:
-http://statweb.stanford.edu/~tibs/ElemStatLearn/
+[The Elements of Statistical Learning](http://statweb.stanford.edu/~tibs/ElemStatLearn/), by Trevor Hastie,
+Robert Tisbshirani and Jerome Friedman is a more heavily mathematical treatment
+of similar topics:
+
+Leo Breiman's [The two cultures of statistical modeling]( [https://projecteuclid.org/euclid.ss/1009213726) makes some observations about
+different approaches to models, their predictive, and explanatory power.
 
 
 ## Glossary

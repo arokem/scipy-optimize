@@ -232,3 +232,7 @@ some conditions. For example, it sometimes predicts values larger than 1.0 for
 large contrasts and values smaller than 0.0 for small contrasts. These values
 are meaningless, because proportion of responses can never be outside the range
 0-1. We need to find a different model.   
+
+Let's continue to non-linear models, to see whether we can do better.
+
+[Click here for the next section](03-nonlinear-models.html).

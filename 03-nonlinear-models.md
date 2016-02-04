@@ -226,3 +226,9 @@ As with the linear model, we would like to see how well the data fits the model.
 > 2. Calculate the residuals and SSE of this model.
 > 3. What is the PSE of this model for both conditions (orthogonal
 >    and parallel)? Is this model better than the linear model?
+
+In the next section we will see that there is more than even two ways to skin
+this cat. We'll also introduce a powerful and general method for comparisons
+between different models, called cross-validation.
+
+[Click here for the next section](04-cross-validation.html).
