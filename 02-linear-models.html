@@ -91,7 +91,7 @@ beta0_ortho = beta_ortho[<span class="dv">1</span>]</code></pre>
 <p>We can also write the above function as follows, splitting the tuple up as it comes out of the function:</p>
 <pre class="sourceCode python"><code class="sourceCode python">
 beta1_ortho, beta0_ortho = np.polyfit(x_ortho, y_ortho, <span class="dv">1</span>)
-beta1_para, beta1_para = np.polyfit(x_para, y_para, <span class="dv">1</span>)</code></pre>
+beta1_para, beta0_para = np.polyfit(x_para, y_para, <span class="dv">1</span>)</code></pre>
 <p>Note that because these values of <span class="math">\(\beta\)</span> are not the “true” values of these coefficients and are just estimates based on the sample we’ve observed, we mark them as an estimate by putting a hat on them: <span class="math">\(\hat{\beta}\)</span>.</p>
 <p>The inverse of <code>np.polyfit</code> is the function `np.polyval’ that takes these values <span class="math">\(\\hat{beta}\)</span> and values of the independent variable (x), and produces estimated values of the dependent variable: <span class="math">\(\hat{y}\)</span>, according to the polynomial function.</p>
 <p>We’ll estimate this for a broad range of the independent variable, covering the full range that was in the measurements:</p>

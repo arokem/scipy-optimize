@@ -172,7 +172,7 @@ plt.legend(loc=<span class="st">&#39;lower right&#39;</span>)</code></pre>
 <p>To find the best parameters for the data, we will use the <code>curve_fit</code> function. This function takes as input a function, and data:</p>
 <pre class="sourceCode python"><code class="sourceCode python">
 params_ortho, cov_ortho = opt.curve_fit(cumgauss, x_ortho, y_ortho)</code></pre>
-<p>The first output are the parameters, and the second output is the covariance of the parameters. This might be useful to know, but using the covariance is beyond the scope of this lesson.</p>
+<p>The first output contains the parameter estimates, and the second output is their covariance. This might be useful to know, but using the covariance is beyond the scope of this lesson.</p>
 <p>As with the linear model, we would like to see how well the data fits the model.</p>
 <section class="challenge panel panel-success">
 <div class="panel-heading">
