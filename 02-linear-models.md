@@ -122,7 +122,7 @@ comes out of the function:
 ~~~ {.python}
 
 beta1_ortho, beta0_ortho = np.polyfit(x_ortho, y_ortho, 1)
-beta1_para, beta1_para = np.polyfit(x_para, y_para, 1)
+beta1_para, beta0_para = np.polyfit(x_para, y_para, 1)
 
 ~~~
 
