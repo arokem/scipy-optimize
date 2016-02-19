@@ -214,8 +214,7 @@ params_ortho, cov_ortho = opt.curve_fit(cumgauss, x_ortho, y_ortho)
 
 ~~~
 
-The first output are the parameters, and the second output is the covariance
-of the parameters. This might be useful to know, but using the covariance is
+The first output contains the parameter estimates, and the second output is their covariance. This might be useful to know, but using the covariance is
 beyond the scope of this lesson.
 
 As with the linear model, we would like to see how well the data fits the model.
