@@ -43,7 +43,7 @@ top of the variable indicates that it is estimated through the model, rather
 than the one that we measured). Then we will want to find values of the
 paraemters $\beta_i$ that bring about the smallest possible value of SSE.
 
-As mentioned before, finding good values for the parameters, $beta_i$ is called
+As mentioned before, finding good values for the parameters, $\beta_i$ is called
 "fitting the model". It turns out that linear models are easy to fit. Under some
 fairly generic assumptions (for example that $\epsilon$ has a zero-mean normal
 distribution), there is actually an analytic solution to this problem. That is,
