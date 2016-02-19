@@ -39,7 +39,7 @@ In each trial of the experiment, participants had to say which of the gratings
 > luminance across the image.
 > Grating stimuli, like the one we used, are often used in vision science to
 > probe this sensitivity. This is a way for us to measure the effects
-> of the presencee of a surround on contrast perception. For example, it is well
+> of the presence of a surround on contrast perception. For example, it is well
 > known that the relative orientation of the surround affects the degree to
 > which the surround reduces the perceived contrast of the central patch.
 > If the surrounding grating is parallel to the stimulus (as in the case shown
@@ -146,7 +146,7 @@ def transform_data(data):
 
 ~~~
 
-We separately transform the data into probabilities for each one of the data files:
+We separately transform the data into proportions for each one of the data files:
 
 ~~~ {.python}
 
@@ -218,7 +218,7 @@ Models derived from data are useful for several reasons:
   data, such as the mean of some variable, or the variance of this variable, are
   often not the best explanation of the data you have observed, in terms of the
   theory. For example, in the data we have observed in our experiment, a useful
-  quantity is the PSE, which telss us what the perceived contrast of the
+  quantity is the PSE, which tells us what the perceived contrast of the
   surrounding grating was. This quantity is not readily present in summary
   statistics of the data. A functional form of a model is a mathematical formula
   that relates systematic changes in measured dependent variables, based on
