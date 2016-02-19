@@ -30,13 +30,13 @@ $\bf{x}$), we don't know it's value on each trial and it goes into the noise.
 
 All the variables designated as $\beta_i$ are parameters of the model.
 
-### How do we choose $beta_i$?
+### How do we choose $\beta_i$?
 
 There are many things you might do to choose the values of the parameters but a
 common criterion is to select parameters that reduce the sum of the square
 of the errors (SSE) between the model estimate of the dependent variable and the values of the depenedent variable that was measured in the data. That is if:
 
-$SSE = \sum{(y - \hat{y})^2}
+$SSE = \sum{(y - \hat{y})^2}$
 
 where $\hat{y}$ is the model estimate of the dependent variable (the "hat" on
 top of the variable indicates that it is estimated through the model, rather
@@ -128,7 +128,7 @@ beta1_para, beta1_para = np.polyfit(x_para, y_para, 1)
 
 Note that because these values of $\beta$ are not the "true" values of these
 coefficients and are just estimates based on the sample we've observed, we
-mark them as an estimate by putting a hat on them: $\\hat{beta}$.
+mark them as an estimate by putting a hat on them: $\hat{\beta}$.
 
 The inverse of `np.polyfit` is the function `np.polyval' that takes these values
 $\\hat{beta}$ and values of the independent variable (x), and produces estimated
@@ -175,9 +175,9 @@ for x:
 
 $0.5 = \beta_0 + \beta_1 x$
 
-$ \Rightarrow 0.5 - \beta_0 = \beta_1 x$
+$\Rightarrow 0.5 - \beta_0 = \beta_1 x$
 
-$ \Rightarrow x = \frac{0.5- \beta_0}{\beta1}$
+$\Rightarrow x = \frac{0.5- \beta_0}{\beta1}$
 
 Or in code:
 

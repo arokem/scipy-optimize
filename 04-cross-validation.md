@@ -174,7 +174,7 @@ sample.
 > SSE. However, these methods generally have some underlying assumptions and are
 > not that transparent to understand. For a nice exposition on how to use these
 > methods see [this paper]() (excuse the paywall...). Also, if you are
-> interested in more on this topic, [This discussion] (http://stats.stackexchange.com/questions/20729/best-approach-for-model-selection-bayesian-or-cross-validation) on
+> interested in more on this topic, [This discussion](http://stats.stackexchange.com/questions/20729/best-approach-for-model-selection-bayesian-or-cross-validation) on
 > the stats stack exchange website is an excellent resource.
 
 

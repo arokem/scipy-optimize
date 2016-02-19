@@ -41,9 +41,9 @@
 <p><span class="math">\(\bf{y} = \beta_0 + \beta_1 \bf{x}_1 + \beta_2 \bf{x}_2 + ... + \beta_n \bf{x}_n + \epsilon\)</span>,</p>
 <p>where <span class="math">\(\bf{y}\)</span> denotes the dependent variable or variables (that’s why it’s bold-faced: it could be a vector!) in your experiment. <span class="math">\(\bf{x}_i\)</span> are sets of dependent variables (also, possibly vectors) and <span class="math">\(\beta_i\)</span> are parameters. Finally, <span class="math">\(\epsilon\)</span> is the noise in the experiment. You can also think about <span class="math">\(\epsilon\)</span> as all the things that your model doesn’t know about. For example, in the visual experiment described, changes in participants wakefulness might affect performance in a systematic way, but unless we explicitely measure wakefulness and add it as an independent variable to our analysis (as another <span class="math">\(\bf{x}\)</span>), we don’t know it’s value on each trial and it goes into the noise.</p>
 <p>All the variables designated as <span class="math">\(\beta_i\)</span> are parameters of the model.</p>
-<h3 id="how-do-we-choose-beta_i">How do we choose <span class="math">\(beta_i\)</span>?</h3>
+<h3 id="how-do-we-choose-beta_i">How do we choose <span class="math">\(\beta_i\)</span>?</h3>
 <p>There are many things you might do to choose the values of the parameters but a common criterion is to select parameters that reduce the sum of the square of the errors (SSE) between the model estimate of the dependent variable and the values of the depenedent variable that was measured in the data. That is if:</p>
-<p>$SSE = </p>
+<p><span class="math">\(SSE = \sum{(y - \hat{y})^2}\)</span></p>
 <p>where <span class="math">\(\hat{y}\)</span> is the model estimate of the dependent variable (the “hat” on top of the variable indicates that it is estimated through the model, rather than the one that we measured). Then we will want to find values of the paraemters <span class="math">\(\beta_i\)</span> that bring about the smallest possible value of SSE.</p>
 <p>As mentioned before, finding good values for the parameters, <span class="math">\(beta_i\)</span> is called “fitting the model”. It turns out that linear models are easy to fit. Under some fairly generic assumptions (for example that <span class="math">\(\epsilon\)</span> has a zero-mean normal distribution), there is actually an analytic solution to this problem. That is, you can plug it into a formula and get the exact solution: the set of <span class="math">\(\beta_i\)</span> that give you the smallest SSE between the data you collected and the function defined by the parameters.</p>
 <aside class="callout panel panel-info">
@@ -92,7 +92,7 @@ beta0_ortho = beta_ortho[<span class="dv">1</span>]</code></pre>
 <pre class="sourceCode python"><code class="sourceCode python">
 beta1_ortho, beta0_ortho = np.polyfit(x_ortho, y_ortho, <span class="dv">1</span>)
 beta1_para, beta1_para = np.polyfit(x_para, y_para, <span class="dv">1</span>)</code></pre>
-<p>Note that because these values of <span class="math">\(\beta\)</span> are not the “true” values of these coefficients and are just estimates based on the sample we’ve observed, we mark them as an estimate by putting a hat on them: <span class="math">\(\\hat{beta}\)</span>.</p>
+<p>Note that because these values of <span class="math">\(\beta\)</span> are not the “true” values of these coefficients and are just estimates based on the sample we’ve observed, we mark them as an estimate by putting a hat on them: <span class="math">\(\hat{\beta}\)</span>.</p>
 <p>The inverse of <code>np.polyfit</code> is the function `np.polyval’ that takes these values <span class="math">\(\\hat{beta}\)</span> and values of the independent variable (x), and produces estimated values of the dependent variable: <span class="math">\(\hat{y}\)</span>, according to the polynomial function.</p>
 <p>We’ll estimate this for a broad range of the independent variable, covering the full range that was in the measurements:</p>
 <pre class="sourceCode python"><code class="sourceCode python">x = np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">100</span>)  <span class="co"># What does linspace do?</span>
@@ -121,8 +121,8 @@ fig.set_size_inches([<span class="dv">8</span>,<span class="dv">8</span>])</code
 </div>
 <p>In this case, we’ll need to do a little bit of algebra. We set y=0.5, and solve for x:</p>
 <p><span class="math">\(0.5 = \beta_0 + \beta_1 x\)</span></p>
-<p>$ 0.5 - _0 = _1 x$</p>
-<p>$ x = $</p>
+<p><span class="math">\(\Rightarrow 0.5 - \beta_0 = \beta_1 x\)</span></p>
+<p><span class="math">\(\Rightarrow x = \frac{0.5- \beta_0}{\beta1}\)</span></p>
 <p>Or in code:</p>
 <pre class="sourceCode python"><code class="sourceCode python">
 pse_ortho = (<span class="fl">0.5</span> - beta0_ortho)/beta1_ortho
