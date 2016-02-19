@@ -14,7 +14,7 @@ minutes: 45
 How do we know that a model is *good enough*?
 
 In the previous section, we managed to reduce the SSE substantially relative to
-the linear model, by fitting a non-linear, but it's still not perfect. How about
+the linear model, by fitting a non-linear one, but it's still not perfect. How about
 trying a more complicated model, with more parameters? Another function that is
 often used to fit psychometric data is the Weibull cumulative distribution
 function, named after the great Swedish mathematician and engineer [Waloddi
@@ -115,7 +115,7 @@ Should we switch over to this model? It seems to be doing better in fitting the 
 ## Overfitting
 
 One of the reasons we should be suspicious of the more accurate second model is
-tha the Weibull function has more parameters. This is sometimes referred to as
+that the Weibull function has more parameters. This is sometimes referred to as
 the "degrees of freedom" of the model, and intuitively just means that the more
 parameters a function has, the more adjustments you can make to the estimated y
 values that you could consistently get across a range of x values. Let's examine
@@ -150,7 +150,7 @@ characterizes the sample is called "overfitting".
 Overfitting generally becomes worse as a model becomes more flexible. This can
 roughly be quantified by the number of parameters in the model. That is, a
 polynomial of degree 6 will always fit the data more accurately than a
-polynomial of degree 5, if only because of overfitting to the noise in the
+polynomial of degree 5, only because of overfitting to the noise in the
 sample.
 
 > ## The bias-variance tradeoff {.callout}
