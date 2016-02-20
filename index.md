@@ -69,3 +69,10 @@ to data.
 *   [Reference](reference.html)
 *   [Discussion](discussion.html)
 *   [Instructor's Guide](instructors.html)
+
+> {.callout}
+>
+> Instruction of this lesson was recorded on February 19th, 2016, as part of
+> the [Data Intensive Biology training program](http://dib-training.readthedocs.org/en/pub/)
+> run by [C. Titus Brown](http://ivory.idyll.org/lab/).
+> You can view the video on [youtube](https://youtu.be/0eFokR-ikaA).
