@@ -15,7 +15,7 @@ date: 23 April 2018
 bibliography: paper.bib
 ---
 
-# Description
+# Summary
 
 Fitting models and testing the match of the models to the measured data
 is a fundamental activity in many fields of science. This short
@@ -72,7 +72,35 @@ Part 4:
 * Learners can define and identify overfitting.
 * Learners can implement split-half cross-validation to evaluate model error.
 
-# Usage
+# Description of the module
+
+This course originated from a
+[blog post](https://mookoom.blogspot.com/2013/01/modeling-psychophysical-data-with-non.html)
+that extended the final exercise for the Software Carpentry instructor
+training (2013). It was then also taught as a remote online workshop, as part
+of a
+[series of remote workshops](https://software-carpentry.org/blog/2016/01/online-workshops-from-ucdavis.html)
+[organized by](http://dib-training.readthedocs.io/en/pub/#youtube-videos-from-streamed-workshops) the UC Davis
+[Data Intensive Biology Lab](http://ivory.idyll.org/lab/).
+
+The data used in the course comes from an experiment in visual
+neuroscience [@rokem091553], but follows a format that is similar to data
+formats in many fields of science: repeated observations of a binary
+response (dependent) variable, for which the probability of a particular
+response depends on a known (independent) input variable. At the outset
+of the course, learners follow along as we read the data from a
+comma-separated file, plot the data, and transform it into a plot of
+probability of response as a function of input. The core of the course
+are a series of lessons on modeling these data: initially using a linear
+model, and then using non-linear models. This allows learners to
+understand and describe the distinction between these. The course
+introduces a functional form for these data and then uses the `curve_fit`
+function from the `scipy.optimize` module to fit these functional form,
+with a sum of squared error objective function. The course also
+briefly introduces model comparison using cross-validation and motivates
+this with an example of over-fitting.
+
+## Usage
 
 To use these instructional materials, it is recommended that the
 instructor type out the code in an interactive environment, such as a
@@ -81,31 +109,9 @@ their own machines. For this purpose, prerequisites and setup
 instructions are provided on the
 [first page](http://arokem.github.io/scipy-optimize/) of the lesson.
 
-# Contributing
+## Example of instruction
 
-## Contributing to the module
-
-Contributions, corrections and improvements are welcome through a pull
-request against the repository at
-[https://github.com/arokem/scipy-optimize](https://github.com/arokem/scipy-optimize)
-
-## Reporting issues or problems with the module and seeking support
-
-Issues and problems with the module, as well as requests for support,
-should be submitted using the GitHub repo Issues page at:
-[https://github.com/arokem/scipy-optimize/issues](https://github.com/arokem/scipy-optimize/issues)
-
-# Content, instructional design, and experience of use in teaching and learning situations
-
-This lesson, initially a blog post produced as a final exercise for
-Software Carpentry Instructor Training
-([http://arokem.github.io/2014-08-12-learn-optimization.html](http://arokem.github.io/2014-08-12-learn-optimization.html)),
-was first used as lesson as a contribution to a series of half-day
-workshops organized by the Lab for Data Intensive Biology at UC Davis
-(and described
-[here](https://software-carpentry.org/blog/2016/01/online-workshops-from-ucdavis.html))
-
-A video of this example of instruction using this lesson is available on
+A video of an example of instruction using this lesson is available on
 [YouTube](https://www.youtube.com/watch?v=0eFokR-ikaA)
 
 # References
