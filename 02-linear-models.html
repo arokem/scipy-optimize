@@ -24,8 +24,7 @@
       <div class="row">
         <div class="col-md-10 col-md-offset-1">
                     <h1 class="title">Linear Models</h1>
-          <h1 id="linear-models.">Linear models.</h1>
-<section class="objectives panel panel-warning">
+          <section class="objectives panel panel-warning">
 <div class="panel-heading">
 <h2 id="learning-objectives"><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
 </div>
@@ -38,14 +37,14 @@
 </div>
 </section>
 <p>The main distinction we will make in this lesson is between linear models and non-linear models. Linear models are models that can be described by the following functional form:</p>
-<p><span class="math">\(\bf{y} = \beta_0 + \beta_1 \bf{x}_1 + \beta_2 \bf{x}_2 + ... + \beta_n \bf{x}_n + \epsilon\)</span>,</p>
-<p>where <span class="math">\(\bf{y}\)</span> denotes the dependent variable or variables (that’s why it’s bold-faced: it could be a vector!) in your experiment. <span class="math">\(\bf{x}_i\)</span> are sets of dependent variables (also, possibly vectors) and <span class="math">\(\beta_i\)</span> are parameters. Finally, <span class="math">\(\epsilon\)</span> is the noise in the experiment. You can also think about <span class="math">\(\epsilon\)</span> as all the things that your model doesn’t know about. For example, in the visual experiment described, changes in participants wakefulness might affect performance in a systematic way, but unless we explicitely measure wakefulness and add it as an independent variable to our analysis (as another <span class="math">\(\bf{x}\)</span>), we don’t know it’s value on each trial and it goes into the noise.</p>
-<p>All the variables designated as <span class="math">\(\beta_i\)</span> are parameters of the model.</p>
-<h3 id="how-do-we-choose-beta_i">How do we choose <span class="math">\(\beta_i\)</span>?</h3>
+<p><span class="math inline">\(\bf{y} = \beta_0 + \beta_1 \bf{x}_1 + \beta_2 \bf{x}_2 + ... + \beta_n \bf{x}_n + \epsilon\)</span>,</p>
+<p>where <span class="math inline">\(\bf{y}\)</span> denotes the dependent variable or variables (that’s why it’s bold-faced: it could be a vector!) in your experiment. <span class="math inline">\(\bf{x}_i\)</span> are sets of dependent variables (also, possibly vectors) and <span class="math inline">\(\beta_i\)</span> are parameters. Finally, <span class="math inline">\(\epsilon\)</span> is the noise in the experiment. You can also think about <span class="math inline">\(\epsilon\)</span> as all the things that your model doesn’t know about. For example, in the visual experiment described, changes in participants wakefulness might affect performance in a systematic way, but unless we explicitely measure wakefulness and add it as an independent variable to our analysis (as another <span class="math inline">\(\bf{x}\)</span>), we don’t know it’s value on each trial and it goes into the noise.</p>
+<p>All the variables designated as <span class="math inline">\(\beta_i\)</span> are parameters of the model.</p>
+<h3 id="how-do-we-choose-beta_i">How do we choose <span class="math inline">\(\beta_i\)</span>?</h3>
 <p>There are many things you might do to choose the values of the parameters but a common criterion is to select parameters that reduce the sum of the square of the errors (SSE) between the model estimate of the dependent variable and the values of the depenedent variable that was measured in the data. That is if:</p>
-<p><span class="math">\(SSE = \sum{(y - \hat{y})^2}\)</span></p>
-<p>where <span class="math">\(\hat{y}\)</span> is the model estimate of the dependent variable (the “hat” on top of the variable indicates that it is estimated through the model, rather than the one that we measured). Then we will want to find values of the paraemters <span class="math">\(\beta_i\)</span> that bring about the smallest possible value of SSE.</p>
-<p>As mentioned before, finding good values for the parameters, <span class="math">\(\beta_i\)</span> is called “fitting the model”. It turns out that linear models are easy to fit. Under some fairly generic assumptions (for example that <span class="math">\(\epsilon\)</span> has a zero-mean normal distribution), there is actually an analytic solution to this problem. That is, you can plug it into a formula and get the exact solution: the set of <span class="math">\(\beta_i\)</span> that give you the smallest SSE between the data you collected and the function defined by the parameters.</p>
+<p><span class="math inline">\(SSE = \sum{(y - \hat{y})^2}\)</span></p>
+<p>where <span class="math inline">\(\hat{y}\)</span> is the model estimate of the dependent variable (the “hat” on top of the variable indicates that it is estimated through the model, rather than the one that we measured). Then we will want to find values of the paraemters <span class="math inline">\(\beta_i\)</span> that bring about the smallest possible value of SSE.</p>
+<p>As mentioned before, finding good values for the parameters, <span class="math inline">\(\beta_i\)</span> is called “fitting the model”. It turns out that linear models are easy to fit. Under some fairly generic assumptions (for example that <span class="math inline">\(\epsilon\)</span> has a zero-mean normal distribution), there is actually an analytic solution to this problem. That is, you can plug it into a formula and get the exact solution: the set of <span class="math inline">\(\beta_i\)</span> that give you the smallest SSE between the data you collected and the function defined by the parameters.</p>
 <aside class="callout panel panel-info">
 <div class="panel-heading">
 <h2 id="linearized-models"><span class="glyphicon glyphicon-pushpin"></span>Linearized models</h2>
@@ -56,8 +55,8 @@
 </aside>
 <h2 id="fitting-a-linear-model-to-psychophysics-data">Fitting a linear model to psychophysics data</h2>
 <p>Let’s fit a linear model to our data. In our case, a linear model would be a straight line in 2D:</p>
-<p><span class="math">\(y = \beta_0 + \beta_1 x\)</span></p>
-<p>Where, <span class="math">\(\beta_0\)</span> is the intercept and <span class="math">\(\beta_1\)</span> is the slope.</p>
+<p><span class="math inline">\(y = \beta_0 + \beta_1 x\)</span></p>
+<p>Where, <span class="math inline">\(\beta_0\)</span> is the intercept and <span class="math inline">\(\beta_1\)</span> is the slope.</p>
 <p>This function is a special case of a larger set of functions called “polynomials” (see below). The <code>numpy</code> library contains a function for fitting these functions, <code>np.polyfit</code></p>
 <aside class="callout panel panel-info">
 <div class="panel-heading">
@@ -65,19 +64,19 @@
 </div>
 <div class="panel-body">
 <p>This family of functions has the general form:</p>
-<p><span class="math">\(\beta_0 + \beta_1 x + \beta_2 x^2 + ... \beta_n x^n\)</span></p>
-<p>where we say that the “degree” of the polynomial is the highest non-zero power of x that is represented in the function. More formally, it is the highest value of n, such that <span class="math">\(\beta_n \neq 0\)</span>.</p>
+<p><span class="math inline">\(\beta_0 + \beta_1 x + \beta_2 x^2 + ... \beta_n x^n\)</span></p>
+<p>where we say that the “degree” of the polynomial is the highest non-zero power of x that is represented in the function. More formally, it is the highest value of n, such that <span class="math inline">\(\beta_n \neq 0\)</span>.</p>
 </div>
 </aside>
 <p>The function <code>np.polyfit</code> requires three arguments, a vector of x values, a vector of y values and an integer, signifying the degree of the polynomial we wish to fit.</p>
-<pre class="sourceCode python"><code class="sourceCode python">
-beta_ortho = np.polyfit(x_ortho, y_ortho, <span class="dv">1</span>)
-beta_para = np.polyfit(x_para, y_para, <span class="dv">1</span>)</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb1-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">beta_ortho <span class="op">=</span> np.polyfit(x_ortho, y_ortho, <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">beta_para <span class="op">=</span> np.polyfit(x_para, y_para, <span class="dv">1</span>)</a></code></pre></div>
 <p>Reading the documentation of polyfit, you will learn that this function returns a tuple with the beta coefficient values, ordered from the <em>highest</em> degree to the <em>lowest</em> degree.</p>
 <p>That is, for the linear (degree=1) function we are fitting here, the slope is the first coeffiecient and the intercept of the function is the second coefficient in the tuple. To match the notation we used in our equations, we can assign as:</p>
-<pre class="sourceCode python"><code class="sourceCode python">
-beta1_ortho = beta_ortho[<span class="dv">0</span>]
-beta0_ortho = beta_ortho[<span class="dv">1</span>]</code></pre>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb2-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">beta1_ortho <span class="op">=</span> beta_ortho[<span class="dv">0</span>]</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">beta0_ortho <span class="op">=</span> beta_ortho[<span class="dv">1</span>]</a></code></pre></div>
 <aside class="callout panel panel-info">
 <div class="panel-heading">
 <h2 id="python-tuples"><span class="glyphicon glyphicon-pushpin"></span>Python tuples</h2>
@@ -89,57 +88,54 @@ beta0_ortho = beta_ortho[<span class="dv">1</span>]</code></pre>
 </div>
 </aside>
 <p>We can also write the above function as follows, splitting the tuple up as it comes out of the function:</p>
-<pre class="sourceCode python"><code class="sourceCode python">
-beta1_ortho, beta0_ortho = np.polyfit(x_ortho, y_ortho, <span class="dv">1</span>)
-beta1_para, beta0_para = np.polyfit(x_para, y_para, <span class="dv">1</span>)</code></pre>
-<p>Note that because these values of <span class="math">\(\beta\)</span> are not the “true” values of these coefficients and are just estimates based on the sample we’ve observed, we mark them as an estimate by putting a hat on them: <span class="math">\(\hat{\beta}\)</span>.</p>
-<p>The inverse of <code>np.polyfit</code> is the function `np.polyval’ that takes these values <span class="math">\(\\hat{beta}\)</span> and values of the independent variable (x), and produces estimated values of the dependent variable: <span class="math">\(\hat{y}\)</span>, according to the polynomial function.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb3-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">beta1_ortho, beta0_ortho <span class="op">=</span> np.polyfit(x_ortho, y_ortho, <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">beta1_para, beta0_para <span class="op">=</span> np.polyfit(x_para, y_para, <span class="dv">1</span>)</a></code></pre></div>
+<p>Note that because these values of <span class="math inline">\(\beta\)</span> are not the “true” values of these coefficients and are just estimates based on the sample we’ve observed, we mark them as an estimate by putting a hat on them: <span class="math inline">\(\hat{\beta}\)</span>.</p>
+<p>The inverse of <code>np.polyfit</code> is the function `np.polyval’ that takes these values <span class="math inline">\(\\hat{beta}\)</span> and values of the independent variable (x), and produces estimated values of the dependent variable: <span class="math inline">\(\hat{y}\)</span>, according to the polynomial function.</p>
 <p>We’ll estimate this for a broad range of the independent variable, covering the full range that was in the measurements:</p>
-<pre class="sourceCode python"><code class="sourceCode python">x = np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">100</span>)  <span class="co"># What does linspace do?</span>
-y_ortho_hat = np.polyval((beta1_ortho, beta0_ortho), x)
-y_para_hat = np.polyval((beta1_para, beta0_para), x)</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb4-1" data-line-number="1">x <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">100</span>)  <span class="co"># What does linspace do?</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">y_ortho_hat <span class="op">=</span> np.polyval((beta1_ortho, beta0_ortho), x)</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">y_para_hat <span class="op">=</span> np.polyval((beta1_para, beta0_para), x)</a></code></pre></div>
 <p>Let’s visualize the result of this:</p>
-<pre class="sourceCode python"><code class="sourceCode python">
-fig, ax = plt.subplots(<span class="dv">1</span>)
-ax.plot(x, y_ortho_hat)
-ax.plot(x_ortho, y_ortho, <span class="st">&#39;bo&#39;</span>)
-ax.plot(x, y_para_hat)
-ax.plot(x_para, y_para, <span class="st">&#39;go&#39;</span>)
-
-ax.set_xlabel(<span class="st">&#39;Contrast 1&#39;</span>)
-ax.set_ylabel(<span class="st">&#39;Proportion responses `1`&#39;</span>)
-ax.grid(<span class="st">&#39;on&#39;</span>)
-fig.set_size_inches([<span class="dv">8</span>,<span class="dv">8</span>])</code></pre>
-<div class="figure">
-<img src="img/figure3.png" alt="Linear models of the data" />
-<p class="caption">Linear models of the data</p>
-</div>
-<p>Recall that we wanted to know the value of the PSE for the two conditions. That is the value of x for which <span class="math">\(\hat{y} = 0.5\)</span>. For example, for the orthogonal surround condition:</p>
-<div class="figure">
-<img src="img/figure4.png" alt="Model estimate of PSE" />
-<p class="caption">Model estimate of PSE</p>
-</div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb5-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">ax.plot(x, y_ortho_hat)</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4">ax.plot(x_ortho, y_ortho, <span class="st">&#39;bo&#39;</span>)</a>
+<a class="sourceLine" id="cb5-5" data-line-number="5">ax.plot(x, y_para_hat)</a>
+<a class="sourceLine" id="cb5-6" data-line-number="6">ax.plot(x_para, y_para, <span class="st">&#39;go&#39;</span>)</a>
+<a class="sourceLine" id="cb5-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb5-8" data-line-number="8">ax.set_xlabel(<span class="st">&#39;Contrast 1&#39;</span>)</a>
+<a class="sourceLine" id="cb5-9" data-line-number="9">ax.set_ylabel(<span class="st">&#39;Proportion responses `1`&#39;</span>)</a>
+<a class="sourceLine" id="cb5-10" data-line-number="10">ax.grid(<span class="st">&#39;on&#39;</span>)</a>
+<a class="sourceLine" id="cb5-11" data-line-number="11">fig.set_size_inches([<span class="dv">8</span>,<span class="dv">8</span>])</a></code></pre></div>
+<figure>
+<img src="img/figure3.png" alt="Linear models of the data" /><figcaption>Linear models of the data</figcaption>
+</figure>
+<p>Recall that we wanted to know the value of the PSE for the two conditions. That is the value of x for which <span class="math inline">\(\hat{y} = 0.5\)</span>. For example, for the orthogonal surround condition:</p>
+<figure>
+<img src="img/figure4.png" alt="Model estimate of PSE" /><figcaption>Model estimate of PSE</figcaption>
+</figure>
 <p>In this case, we’ll need to do a little bit of algebra. We set y=0.5, and solve for x:</p>
-<p><span class="math">\(0.5 = \beta_0 + \beta_1 x\)</span></p>
-<p><span class="math">\(\Rightarrow 0.5 - \beta_0 = \beta_1 x\)</span></p>
-<p><span class="math">\(\Rightarrow x = \frac{0.5- \beta_0}{\beta1}\)</span></p>
+<p><span class="math inline">\(0.5 = \beta_0 + \beta_1 x\)</span></p>
+<p><span class="math inline">\(\Rightarrow 0.5 - \beta_0 = \beta_1 x\)</span></p>
+<p><span class="math inline">\(\Rightarrow x = \frac{0.5- \beta_0}{\beta1}\)</span></p>
 <p>Or in code:</p>
-<pre class="sourceCode python"><code class="sourceCode python">
-pse_ortho = (<span class="fl">0.5</span> - beta0_ortho)/beta1_ortho
-pse_para = (<span class="fl">0.5</span> - beta0_para)/beta1_para</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb6-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">pse_ortho <span class="op">=</span> (<span class="fl">0.5</span> <span class="op">-</span> beta0_ortho)<span class="op">/</span>beta1_ortho</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">pse_para <span class="op">=</span> (<span class="fl">0.5</span> <span class="op">-</span> beta0_para)<span class="op">/</span>beta1_para</a></code></pre></div>
 <h2 id="evaluating-models">Evaluating models</h2>
 <p>How good is the model? Let’s look at the model “residuals”, the difference between the model and the measured data:</p>
-<div class="figure">
-<img src="img/figure5.png" alt="Model residuals" />
-<p class="caption">Model residuals</p>
-</div>
+<figure>
+<img src="img/figure5.png" alt="Model residuals" /><figcaption>Model residuals</figcaption>
+</figure>
 <p>Recall that we wanted to find parameters that would minimize the sum of the squared errors (SSE):</p>
-<pre class="sourceCode python"><code class="sourceCode python">
-residuals_ortho = x_ortho - np.polyval((beta1_ortho, beta0_ortho), x_ortho)
-SSE_ortho = np.<span class="dt">sum</span>(residuals_ortho ** <span class="dv">2</span>)
-
-residuals_ortho = x_ortho - np.polyval((beta1_ortho, beta0_ortho), x_ortho)
-SSE_ortho = np.<span class="dt">sum</span>(residuals_para ** <span class="dv">2</span>)</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb7-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">residuals_ortho <span class="op">=</span> x_ortho <span class="op">-</span> np.polyval((beta1_ortho, beta0_ortho), x_ortho)</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">SSE_ortho <span class="op">=</span> np.<span class="bu">sum</span>(residuals_ortho <span class="op">**</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5">residuals_ortho <span class="op">=</span> x_ortho <span class="op">-</span> np.polyval((beta1_ortho, beta0_ortho), x_ortho)</a>
+<a class="sourceLine" id="cb7-6" data-line-number="6">SSE_ortho <span class="op">=</span> np.<span class="bu">sum</span>(residuals_para <span class="op">**</span> <span class="dv">2</span>)</a></code></pre></div>
 <p>To summarize: This model seems to capture some aspects of the data rather well. For one, it is monotonically increasing. And the SSE doesn’t seem too bad (though that’s hard to assess just by looking at this number). This model tells us that the PSE is at approximately 0.43 for orthogonal condition and approximately 0.56 for the parallel condition. That is, the contrast in the first interval has to be higher than the contrast in the second interval to appear exactly the same. By how much? For the orthogonal condition it’s about 13% and for the parallel condition it’s about 26% (considering that the comparison contrast is always 30%). This makes sense: more suppression for the parallel relative to the orthogonal condition.</p>
 <p>But there are also a few problems with this model: It seems to miss a lot of the points. That could be because the data is very noisy, but we can see that the model systematically overshoot the fit for high values of x and systematically undershoots for low values of x. If we had more data, we might see this repeatedly, clueing us in that this is not just a matter of the noise in this data. This might indicate to us that another model might be better for this data.</p>
 <p>Finally, another problem is that it seems to produce non-sensical values for some conditions. For example, it sometimes predicts values larger than 1.0 for large contrasts and values smaller than 0.0 for small contrasts. These values are meaningless, because proportion of responses can never be outside the range 0-1. We need to find a different model.</p>

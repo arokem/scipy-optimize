@@ -1,9 +1,8 @@
 ---
 layout: page
-title: Introduction
+title: Introduction: models and why we like them
 minutes: 20
 ---
-# Introduction: models and why we like them
 
 > ## Learning Objectives {.objectives}
 >

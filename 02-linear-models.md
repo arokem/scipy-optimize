@@ -4,8 +4,6 @@ title: Linear Models
 minutes: 35
 ---
 
-# Linear models.
-
 > ## Learning Objectives {.objectives}
 >
 > * Learners can identify a linear model.
@@ -231,7 +229,7 @@ Finally, another problem is that it seems to produce non-sensical values for
 some conditions. For example, it sometimes predicts values larger than 1.0 for
 large contrasts and values smaller than 0.0 for small contrasts. These values
 are meaningless, because proportion of responses can never be outside the range
-0-1. We need to find a different model.   
+0-1. We need to find a different model.
 
 Let's continue to non-linear models, to see whether we can do better.
 

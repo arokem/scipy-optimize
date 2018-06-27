@@ -4,8 +4,6 @@ title: Non-linear Models
 minutes: 35
 ---
 
-# Non-linear models
-
 > ## Learning Objectives {.objectives}
 >
 > * Learners can identify a nonlinear model, and discuss the differences between linear and nonlinear models

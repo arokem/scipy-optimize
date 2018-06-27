@@ -4,8 +4,6 @@ title: Model evaulation with cross-validation
 minutes: 45
 ---
 
-# Model evaluation with cross-validation
-
 > ## Learning Objectives {.objectives}
 >
 > * Learners can define and identify overfitting.
