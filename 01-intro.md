@@ -50,7 +50,7 @@ In each trial of the experiment, participants had to say which of the gratings
 >
 > If you are wondering why we are interested in surround suppression in the
 > first place, you can find some of our papers using these measurements on [my website](http://arokem.org/publications). For example, in
-> [one study (pdf)](http://arokem.org/publications/papers/Yoon2010SS_MRS.pdf),
+> [one study (pdf)](https://doi.org/10.1523/JNEUROSCI.6158-09.2010),
 > we found that this measurement tells us about differences in brain chemistry
 > between healthy people, and patients with schizophrenia.
 

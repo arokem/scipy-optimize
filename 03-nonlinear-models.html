@@ -38,9 +38,9 @@
 </div>
 </section>
 <p>Unfortunately, linear models don’t always fit our data. As shown before, they might produce large and systematic fit error, or they might produce parameter values that don’t make sense. In these cases, we might need to fit a non-linear model to our data. Non-linear models are mathematically expressed as:</p>
-<p><span class="math">\(\bf{y} = f(\bf{x}_1, \bf{x}_2, ... \bf{x}_n, \bf{\beta}) + \epsilon\)</span>,</p>
-<p>Where <span class="math">\(f()\)</span> can be almost any function you can think of that takes <span class="math">\(x\)</span>’s and <span class="math">\(\beta\)</span>’s as input. The problem is that, in contrast to the linear models, there is no formula that you can just plug your function and data into and derive the values of the parameters.</p>
-<p>One way to find the value of the parameters for a given model is to use optimization. In this process, the computer systematically tries out different values of <span class="math">\(\beta\)</span> and finds a set of these values that minimizes the SSE relative to the data.</p>
+<p><span class="math inline">\(\bf{y} = f(\bf{x}_1, \bf{x}_2, ... \bf{x}_n, \bf{\beta}) + \epsilon\)</span>,</p>
+<p>Where <span class="math inline">\(f()\)</span> can be almost any function you can think of that takes <span class="math inline">\(x\)</span>’s and <span class="math inline">\(\beta\)</span>’s as input. The problem is that, in contrast to the linear models, there is no formula that you can just plug your function and data into and derive the values of the parameters.</p>
+<p>One way to find the value of the parameters for a given model is to use optimization. In this process, the computer systematically tries out different values of <span class="math inline">\(\beta\)</span> and finds a set of these values that minimizes the SSE relative to the data.</p>
 <aside class="callout panel panel-info">
 <div class="panel-heading">
 <h2 id="optimization"><span class="glyphicon glyphicon-pushpin"></span>Optimization</h2>
@@ -52,9 +52,9 @@
 <h1 id="introducing-scipy">Introducing <code>scipy</code></h1>
 <p>The <code>scipy</code> library contains many functions that are useful in a variety of scientific computing tasks.</p>
 <p>If you import the library, you will see that it is composed of a variety of sub-modules, each devoted to a different set of algorithms, or a topic:</p>
-<pre class="sourceCode python"><code class="sourceCode python">
-<span class="ch">import</span> scipy
-scipy?</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb1-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="im">import</span> scipy</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">scipy?</a></code></pre></div>
 <pre class="output"><code>
 SciPy: A scientific computing package for Python
 ================================================
@@ -112,66 +112,65 @@ Utility tools
 </code></pre>
 <p>To use any one of these sub-modules, we’ll need to import it specifically.</p>
 <p>For example:</p>
-<pre class="sourceCode python"><code class="sourceCode python">
-<span class="ch">from</span> scipy <span class="ch">import</span> optimize <span class="ch">as</span> opt</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb3-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="im">from</span> scipy <span class="im">import</span> optimize <span class="im">as</span> opt</a></code></pre></div>
 <p>This module contains many functions that deal with various optimization tasks and implement many different algorithms for optimization. We’ll focus here on one of these functions, <code>curve_fit</code>, which systemtatically searches for the parameters that mimize the squared errors of a function relative to data.</p>
 <h2 id="optimization-in-practice">Optimization in practice</h2>
 <p>Let’s now consider the steps you will need to take in fitting a non-linear model.</p>
 <h3 id="defining-the-model">Defining the model</h3>
-<p>To perform optimization, we need to define the functional form of our model. For this kind of data, a common model to use (e.g in <a href="http://ww.journalofvision.org/content/2/3/4.full">work by Yu and Levi</a>) is a cumulative Gaussian function. The Gaussian distribution is parameterized by 2 numbers, the mean and the variance, so as in the linear model shown above, this model has 2 parameters:</p>
-<p><span class="math">\(y(x) = \frac{1}{2}[1 + erf(\frac{x-\mu}{\sigma \sqrt{2} })]\)</span>,</p>
-<p>where <span class="math">\(erf\)</span> is the so-called ‘error function’, that is implemented in <code>scipy.special</code> (<code>from scipy import special</code>).</p>
-<pre class="sourceCode python"><code class="sourceCode python">
-<span class="ch">from</span> scipy <span class="ch">import</span> special
-<span class="kw">def</span> cumgauss(x, mu, sigma):
-    <span class="co">&quot;&quot;&quot;</span>
-<span class="co">    The cumulative Gaussian at x, for the distribution with mean mu and</span>
-<span class="co">    standard deviation sigma.</span>
-
-<span class="co">    Parameters</span>
-<span class="co">    ----------</span>
-<span class="co">    x : float or array</span>
-<span class="co">       The values of x over which to evaluate the cumulative Gaussian function</span>
-
-<span class="co">    mu : float</span>
-<span class="co">       The mean parameter. Determines the x value at which the y value is 0.5</span>
-
-<span class="co">    sigma : float</span>
-<span class="co">       The variance parameter. Determines the slope of the curve at the point of</span>
-<span class="co">       Deflection</span>
-
-<span class="co">    Returns</span>
-<span class="co">    -------</span>
-
-<span class="co">    Notes</span>
-<span class="co">    -----</span>
-<span class="co">    Based on:</span>
-<span class="co">    http://en.wikipedia.org/wiki/Normal_distribution#Cumulative_distribution_function</span>
-
-<span class="co">    &quot;&quot;&quot;</span>
-    <span class="kw">return</span> <span class="fl">0.5</span> * (<span class="dv">1</span> + special.erf((x-mu)/(np.sqrt(<span class="dv">2</span>)*sigma)))</code></pre>
+<p>To perform optimization, we need to define the functional form of our model. For this kind of data, a common model to use (e.g in <a href="http://doi.org/10.1167/2.3.4">work by Yu and Levi</a>) is a cumulative Gaussian function. The Gaussian distribution is parameterized by 2 numbers, the mean and the variance, so as in the linear model shown above, this model has 2 parameters:</p>
+<p><span class="math inline">\(y(x) = \frac{1}{2}[1 + erf(\frac{x-\mu}{\sigma \sqrt{2} })]\)</span>,</p>
+<p>where <span class="math inline">\(erf\)</span> is the so-called ‘error function’, that is implemented in <code>scipy.special</code> (<code>from scipy import special</code>).</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb4-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="im">from</span> scipy <span class="im">import</span> special</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="kw">def</span> cumgauss(x, mu, sigma):</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">    <span class="co">&quot;&quot;&quot;</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">    The cumulative Gaussian at x, for the distribution with mean mu and</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">    standard deviation sigma.</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">    Parameters</span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">    ----------</span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">    x : float or array</span></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">       The values of x over which to evaluate the cumulative Gaussian function</span></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">    mu : float</span></a>
+<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">       The mean parameter. Determines the x value at which the y value is 0.5</span></a>
+<a class="sourceLine" id="cb4-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">    sigma : float</span></a>
+<a class="sourceLine" id="cb4-17" data-line-number="17"><span class="co">       The variance parameter. Determines the slope of the curve at the point of</span></a>
+<a class="sourceLine" id="cb4-18" data-line-number="18"><span class="co">       Deflection</span></a>
+<a class="sourceLine" id="cb4-19" data-line-number="19"></a>
+<a class="sourceLine" id="cb4-20" data-line-number="20"><span class="co">    Returns</span></a>
+<a class="sourceLine" id="cb4-21" data-line-number="21"><span class="co">    -------</span></a>
+<a class="sourceLine" id="cb4-22" data-line-number="22"></a>
+<a class="sourceLine" id="cb4-23" data-line-number="23"><span class="co">    Notes</span></a>
+<a class="sourceLine" id="cb4-24" data-line-number="24"><span class="co">    -----</span></a>
+<a class="sourceLine" id="cb4-25" data-line-number="25"><span class="co">    Based on:</span></a>
+<a class="sourceLine" id="cb4-26" data-line-number="26"><span class="co">    http://en.wikipedia.org/wiki/Normal_distribution#Cumulative_distribution_function</span></a>
+<a class="sourceLine" id="cb4-27" data-line-number="27"></a>
+<a class="sourceLine" id="cb4-28" data-line-number="28"><span class="co">    &quot;&quot;&quot;</span></a>
+<a class="sourceLine" id="cb4-29" data-line-number="29">    <span class="cf">return</span> <span class="fl">0.5</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> special.erf((x<span class="op">-</span>mu)<span class="op">/</span>(np.sqrt(<span class="dv">2</span>)<span class="op">*</span>sigma)))</a></code></pre></div>
 <p>The doc-string already tells you one reason that we might want to use this function for this kind of data: one of the parameters of the function (mu) is simply the definition of the PSE. So, if we find this parameter, we already have the PSE in hand, without having to do any extra algebra.</p>
 <p>Let’s plot a few exemplars of this function, just to get a feel for them:</p>
-<pre class="sourceCode python"><code class="sourceCode python">
-fig, ax = plt.subplots(<span class="dv">1</span>)
-ax.plot(x, cumgauss(x, <span class="fl">0.5</span>, <span class="fl">0.25</span>), label=<span class="st">&#39;mu=0, sigma=0.25&#39;</span>)
-ax.plot(x, cumgauss(x, <span class="fl">0.5</span>, <span class="fl">0.5</span>), label=<span class="st">&#39;mu=0, sigma=0.5&#39;</span>)
-ax.plot(x, cumgauss(x, <span class="fl">0.5</span>, <span class="fl">0.75</span>), label=<span class="st">&#39;mu=0, sigma=0.75&#39;</span>)
-ax.plot(x, cumgauss(x, <span class="fl">0.3</span>, <span class="fl">0.25</span>), label=<span class="st">&#39;mu=0.3, sigma=0.25&#39;</span>)
-ax.plot(x, cumgauss(x, <span class="fl">0.7</span>, <span class="fl">0.25</span>), label=<span class="st">&#39;mu=0.3, sigma=0.25&#39;</span>)
-ax.set_ylim([-<span class="fl">0.1</span>, <span class="fl">1.1</span>])
-ax.set_xlim([-<span class="fl">0.1</span>, <span class="fl">1.1</span>])
-ax.grid(<span class="st">&#39;on&#39;</span>)
-fig.set_size_inches([<span class="dv">8</span>,<span class="dv">8</span>])
-plt.legend(loc=<span class="st">&#39;lower right&#39;</span>)</code></pre>
-<div class="figure">
-<img src="img/figure6.png" alt="Cumulative Gaussian functions" />
-<p class="caption">Cumulative Gaussian functions</p>
-</div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb5-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">ax.plot(x, cumgauss(x, <span class="fl">0.5</span>, <span class="fl">0.25</span>), label<span class="op">=</span><span class="st">&#39;mu=0, sigma=0.25&#39;</span>)</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4">ax.plot(x, cumgauss(x, <span class="fl">0.5</span>, <span class="fl">0.5</span>), label<span class="op">=</span><span class="st">&#39;mu=0, sigma=0.5&#39;</span>)</a>
+<a class="sourceLine" id="cb5-5" data-line-number="5">ax.plot(x, cumgauss(x, <span class="fl">0.5</span>, <span class="fl">0.75</span>), label<span class="op">=</span><span class="st">&#39;mu=0, sigma=0.75&#39;</span>)</a>
+<a class="sourceLine" id="cb5-6" data-line-number="6">ax.plot(x, cumgauss(x, <span class="fl">0.3</span>, <span class="fl">0.25</span>), label<span class="op">=</span><span class="st">&#39;mu=0.3, sigma=0.25&#39;</span>)</a>
+<a class="sourceLine" id="cb5-7" data-line-number="7">ax.plot(x, cumgauss(x, <span class="fl">0.7</span>, <span class="fl">0.25</span>), label<span class="op">=</span><span class="st">&#39;mu=0.3, sigma=0.25&#39;</span>)</a>
+<a class="sourceLine" id="cb5-8" data-line-number="8">ax.set_ylim([<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>])</a>
+<a class="sourceLine" id="cb5-9" data-line-number="9">ax.set_xlim([<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>])</a>
+<a class="sourceLine" id="cb5-10" data-line-number="10">ax.grid(<span class="st">&#39;on&#39;</span>)</a>
+<a class="sourceLine" id="cb5-11" data-line-number="11">fig.set_size_inches([<span class="dv">8</span>,<span class="dv">8</span>])</a>
+<a class="sourceLine" id="cb5-12" data-line-number="12">plt.legend(loc<span class="op">=</span><span class="st">&#39;lower right&#39;</span>)</a></code></pre></div>
+<figure>
+<img src="img/figure6.png" alt="Cumulative Gaussian functions" /><figcaption>Cumulative Gaussian functions</figcaption>
+</figure>
 <h3 id="optimizing-and-finding-the-parameters">Optimizing and finding the parameters</h3>
 <p>To find the best parameters for the data, we will use the <code>curve_fit</code> function. This function takes as input a function, and data:</p>
-<pre class="sourceCode python"><code class="sourceCode python">
-params_ortho, cov_ortho = opt.curve_fit(cumgauss, x_ortho, y_ortho)</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb6-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">params_ortho, cov_ortho <span class="op">=</span> opt.curve_fit(cumgauss, x_ortho, y_ortho)</a></code></pre></div>
 <p>The first output contains the parameter estimates, and the second output is their covariance. This might be useful to know, but using the covariance is beyond the scope of this lesson.</p>
 <p>As with the linear model, we would like to see how well the data fits the model.</p>
 <section class="challenge panel panel-success">
@@ -179,7 +178,7 @@ params_ortho, cov_ortho = opt.curve_fit(cumgauss, x_ortho, y_ortho)</code></pre>
 <h2 id="non-linear-model-fit"><span class="glyphicon glyphicon-pencil"></span>Non-linear model fit</h2>
 </div>
 <div class="panel-body">
-<ol style="list-style-type: decimal">
+<ol type="1">
 <li>Write the code that plots the model estimate and the actual data.</li>
 <li>Calculate the residuals and SSE of this model.</li>
 <li>What is the PSE of this model for both conditions (orthogonal and parallel)? Is this model better than the linear model?</li>

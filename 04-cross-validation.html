@@ -38,89 +38,86 @@
 </section>
 <p>How do we know that a model is <em>good enough</em>?</p>
 <p>In the previous section, we managed to reduce the SSE substantially relative to the linear model, by fitting a non-linear one, but it’s still not perfect. How about trying a more complicated model, with more parameters? Another function that is often used to fit psychometric data is the Weibull cumulative distribution function, named after the great Swedish mathematician and engineer <a href="http://en.wikipedia.org/wiki/Waloddi_Weibull">Waloddi Weibull</a></p>
-<pre class="sourceCode python"><code class="sourceCode python">
-<span class="kw">def</span> weibull(x, threshx, slope, lower_asymp, upper_asymp):
-    <span class="co">&quot;&quot;&quot;</span>
-<span class="co">    The Weibull cumulative distribution function</span>
-
-<span class="co">    Parameters</span>
-<span class="co">    ----------</span>
-<span class="co">    x : float or array</span>
-<span class="co">       The values of x over which to evaluate the cumulative Weibull function</span>
-
-<span class="co">    threshx : float</span>
-<span class="co">       The value of x at the deflection point of the function.</span>
-<span class="co">       For a lower_asymp set to 0.5, this is at approximately y=0.81  </span>
-
-<span class="co">    slope : float</span>
-<span class="co">        The slope of the function at the deflection point.</span>
-
-<span class="co">    lower_asymp : float</span>
-<span class="co">        The lower asymptote of the function</span>
-
-<span class="co">    upper_asymp : float</span>
-<span class="co">        The upper asymptote of the function.</span>
-<span class="co">    &quot;&quot;&quot;</span>
-    threshy = <span class="dv">1</span> - (lower_asymp * np.exp(-<span class="dv">1</span>))
-    k = (-np.log((<span class="dv">1</span> - threshy) / (lower_asymp))) ** (<span class="dv">1</span> / slope)
-    m = (lower_asymp + upper_asymp - <span class="dv">1</span>) * np.exp(-(k * x / threshx) ** slope)
-    <span class="kw">return</span> upper_asymp - m</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb1-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">def</span> weibull(x, threshx, slope, lower_asymp, upper_asymp):</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">    <span class="co">&quot;&quot;&quot;</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co">    The Weibull cumulative distribution function</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co">    Parameters</span></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co">    ----------</span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="co">    x : float or array</span></a>
+<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="co">       The values of x over which to evaluate the cumulative Weibull function</span></a>
+<a class="sourceLine" id="cb1-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="co">    threshx : float</span></a>
+<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="co">       The value of x at the deflection point of the function.</span></a>
+<a class="sourceLine" id="cb1-13" data-line-number="13"><span class="co">       For a lower_asymp set to 0.5, this is at approximately y=0.81</span></a>
+<a class="sourceLine" id="cb1-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb1-15" data-line-number="15"><span class="co">    slope : float</span></a>
+<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="co">        The slope of the function at the deflection point.</span></a>
+<a class="sourceLine" id="cb1-17" data-line-number="17"></a>
+<a class="sourceLine" id="cb1-18" data-line-number="18"><span class="co">    lower_asymp : float</span></a>
+<a class="sourceLine" id="cb1-19" data-line-number="19"><span class="co">        The lower asymptote of the function</span></a>
+<a class="sourceLine" id="cb1-20" data-line-number="20"></a>
+<a class="sourceLine" id="cb1-21" data-line-number="21"><span class="co">    upper_asymp : float</span></a>
+<a class="sourceLine" id="cb1-22" data-line-number="22"><span class="co">        The upper asymptote of the function.</span></a>
+<a class="sourceLine" id="cb1-23" data-line-number="23"><span class="co">    &quot;&quot;&quot;</span></a>
+<a class="sourceLine" id="cb1-24" data-line-number="24">    threshy <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> (lower_asymp <span class="op">*</span> np.exp(<span class="op">-</span><span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb1-25" data-line-number="25">    k <span class="op">=</span> (<span class="op">-</span>np.log((<span class="dv">1</span> <span class="op">-</span> threshy) <span class="op">/</span> (lower_asymp))) <span class="op">**</span> (<span class="dv">1</span> <span class="op">/</span> slope)</a>
+<a class="sourceLine" id="cb1-26" data-line-number="26">    m <span class="op">=</span> (lower_asymp <span class="op">+</span> upper_asymp <span class="op">-</span> <span class="dv">1</span>) <span class="op">*</span> np.exp(<span class="op">-</span>(k <span class="op">*</span> x <span class="op">/</span> threshx) <span class="op">**</span> slope)</a>
+<a class="sourceLine" id="cb1-27" data-line-number="27">    <span class="cf">return</span> upper_asymp <span class="op">-</span> m</a></code></pre></div>
 <p>As you can see, this function has several more parameters to account for features of the data that may interest us.</p>
 <p>Let’s see what that might look like:</p>
-<pre class="sourceCode python"><code class="sourceCode python">
-fig, ax = plt.subplots(<span class="dv">1</span>)
-ax.plot(x, weibull(x, <span class="fl">0.5</span>, <span class="fl">3.5</span>, <span class="fl">0.5</span>, <span class="fl">0.95</span>), label=<span class="st">&#39;threshx=0.5, slope=3.5, lower_asymp=0.5, upper_asymp=0.95&#39;</span>)
-ax.plot(x, weibull(x, <span class="fl">0.5</span>, <span class="fl">3.5</span>, <span class="dv">1</span>, <span class="fl">0.95</span>),  label=<span class="st">&#39;threshx=0.5, slope=3.5, lower_asymp=1, upper_asymp=0.95&#39;</span>)
-ax.plot(x, weibull(x, <span class="fl">0.5</span>, <span class="fl">3.5</span>, <span class="dv">1</span>, <span class="fl">0.85</span>), label=<span class="st">&#39;threshx=0.5, slope=3.5, lower_asymp=1, upper_asymp=0.85&#39;</span>)
-ax.plot(x, weibull(x, <span class="fl">0.25</span>, <span class="fl">3.5</span>, <span class="fl">0.5</span>, <span class="fl">0.95</span>), label=<span class="st">&#39;threshx=0.25, slope=3.5, lower_asymp=0.5, upper_asymp=0.95&#39;</span>)
-ax.plot(x, weibull(x, <span class="fl">0.75</span>, <span class="fl">3.5</span>, <span class="dv">1</span>, <span class="fl">0.85</span>), label=<span class="st">&#39;threshx=0.75, slope=3.5, lower_asymp=1, upper_asymp=0.85&#39;</span>)
-ax.grid(<span class="st">&#39;on&#39;</span>)
-fig.set_size_inches([<span class="dv">14</span>, <span class="dv">8</span>])
-plt.legend(loc=<span class="st">&#39;lower right&#39;</span>)</code></pre>
-<div class="figure">
-<img src="img/figure7.png" alt="Weibull functions" />
-<p class="caption">Weibull functions</p>
-</div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb2-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">ax.plot(x, weibull(x, <span class="fl">0.5</span>, <span class="fl">3.5</span>, <span class="fl">0.5</span>, <span class="fl">0.95</span>), label<span class="op">=</span><span class="st">&#39;threshx=0.5, slope=3.5, lower_asymp=0.5, upper_asymp=0.95&#39;</span>)</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">ax.plot(x, weibull(x, <span class="fl">0.5</span>, <span class="fl">3.5</span>, <span class="dv">1</span>, <span class="fl">0.95</span>),  label<span class="op">=</span><span class="st">&#39;threshx=0.5, slope=3.5, lower_asymp=1, upper_asymp=0.95&#39;</span>)</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">ax.plot(x, weibull(x, <span class="fl">0.5</span>, <span class="fl">3.5</span>, <span class="dv">1</span>, <span class="fl">0.85</span>), label<span class="op">=</span><span class="st">&#39;threshx=0.5, slope=3.5, lower_asymp=1, upper_asymp=0.85&#39;</span>)</a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">ax.plot(x, weibull(x, <span class="fl">0.25</span>, <span class="fl">3.5</span>, <span class="fl">0.5</span>, <span class="fl">0.95</span>), label<span class="op">=</span><span class="st">&#39;threshx=0.25, slope=3.5, lower_asymp=0.5, upper_asymp=0.95&#39;</span>)</a>
+<a class="sourceLine" id="cb2-7" data-line-number="7">ax.plot(x, weibull(x, <span class="fl">0.75</span>, <span class="fl">3.5</span>, <span class="dv">1</span>, <span class="fl">0.85</span>), label<span class="op">=</span><span class="st">&#39;threshx=0.75, slope=3.5, lower_asymp=1, upper_asymp=0.85&#39;</span>)</a>
+<a class="sourceLine" id="cb2-8" data-line-number="8">ax.grid(<span class="st">&#39;on&#39;</span>)</a>
+<a class="sourceLine" id="cb2-9" data-line-number="9">fig.set_size_inches([<span class="dv">14</span>, <span class="dv">8</span>])</a>
+<a class="sourceLine" id="cb2-10" data-line-number="10">plt.legend(loc<span class="op">=</span><span class="st">&#39;lower right&#39;</span>)</a></code></pre></div>
+<figure>
+<img src="img/figure7.png" alt="Weibull functions" /><figcaption>Weibull functions</figcaption>
+</figure>
 <p>We go ahead and fit this function as well, using <code>curve_fit</code></p>
-<pre class="sourceCode python"><code class="sourceCode python">
-params_ortho, cov_ortho = opt.curve_fit(weibull, x_ortho, y_ortho)
-params_para, cov_para = opt.curve_fit(weibull, x_para, y_para)</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb3-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">params_ortho, cov_ortho <span class="op">=</span> opt.curve_fit(weibull, x_ortho, y_ortho)</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">params_para, cov_para <span class="op">=</span> opt.curve_fit(weibull, x_para, y_para)</a></code></pre></div>
 <p>And examine the results:</p>
-<pre class="sourceCode python"><code class="sourceCode python">
-y_ortho_hat = weibull(x, params_ortho[<span class="dv">0</span>], params_ortho[<span class="dv">1</span>], params_ortho[<span class="dv">2</span>], params_ortho[<span class="dv">3</span>])
-fig, ax = plt.subplots(<span class="dv">1</span>)
-ax.plot(x, y_ortho_hat)
-ax.plot(x_ortho, y_ortho, <span class="st">&#39;bo&#39;</span>)
-
-y_para_hat = weibull(x, params_para[<span class="dv">0</span>], params_para[<span class="dv">1</span>], params_para[<span class="dv">2</span>], params_para[<span class="dv">3</span>])
-ax.plot(x, y_para_hat)
-ax.plot(x_para, y_para, <span class="st">&#39;go&#39;</span>)
-
-ax.grid(<span class="st">&quot;on&quot;</span>)
-fig.set_size_inches([<span class="dv">8</span>, <span class="dv">8</span>])</code></pre>
-<div class="figure">
-<img src="img/figure8.png" alt="Weibull fits" />
-<p class="caption">Weibull fits</p>
-</div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb4-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">y_ortho_hat <span class="op">=</span> weibull(x, params_ortho[<span class="dv">0</span>], params_ortho[<span class="dv">1</span>], params_ortho[<span class="dv">2</span>], params_ortho[<span class="dv">3</span>])</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">ax.plot(x, y_ortho_hat)</a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">ax.plot(x_ortho, y_ortho, <span class="st">&#39;bo&#39;</span>)</a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7">y_para_hat <span class="op">=</span> weibull(x, params_para[<span class="dv">0</span>], params_para[<span class="dv">1</span>], params_para[<span class="dv">2</span>], params_para[<span class="dv">3</span>])</a>
+<a class="sourceLine" id="cb4-8" data-line-number="8">ax.plot(x, y_para_hat)</a>
+<a class="sourceLine" id="cb4-9" data-line-number="9">ax.plot(x_para, y_para, <span class="st">&#39;go&#39;</span>)</a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11">ax.grid(<span class="st">&quot;on&quot;</span>)</a>
+<a class="sourceLine" id="cb4-12" data-line-number="12">fig.set_size_inches([<span class="dv">8</span>, <span class="dv">8</span>])</a></code></pre></div>
+<figure>
+<img src="img/figure8.png" alt="Weibull fits" /><figcaption>Weibull fits</figcaption>
+</figure>
 <p>Calculating the error, we find that the SSE is smaller for this model:</p>
-<pre class="sourceCode python"><code class="sourceCode python">
-SSE_para = np.<span class="dt">sum</span>((weibull(x_para, params_para[<span class="dv">0</span>], params_para[<span class="dv">1</span>], params_para[<span class="dv">2</span>], params_para[<span class="dv">3</span>]) - y_para) ** <span class="dv">2</span>)
-SSE_ortho = np.<span class="dt">sum</span>((weibull(x_ortho, params_ortho[<span class="dv">0</span>], params_ortho[<span class="dv">1</span>], params_ortho[<span class="dv">2</span>], params_ortho[<span class="dv">3</span>]) - y_ortho) ** <span class="dv">2</span>)</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb5-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">SSE_para <span class="op">=</span> np.<span class="bu">sum</span>((weibull(x_para, params_para[<span class="dv">0</span>], params_para[<span class="dv">1</span>], params_para[<span class="dv">2</span>], params_para[<span class="dv">3</span>]) <span class="op">-</span> y_para) <span class="op">**</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">SSE_ortho <span class="op">=</span> np.<span class="bu">sum</span>((weibull(x_ortho, params_ortho[<span class="dv">0</span>], params_ortho[<span class="dv">1</span>], params_ortho[<span class="dv">2</span>], params_ortho[<span class="dv">3</span>]) <span class="op">-</span> y_ortho) <span class="op">**</span> <span class="dv">2</span>)</a></code></pre></div>
 <p>Should we switch over to this model? It seems to be doing better in fitting the data.</p>
 <h2 id="overfitting">Overfitting</h2>
-<p>One of the reasons we should be suspicious of the more accurate second model is that the Weibull function has more parameters. This is sometimes referred to as the “degrees of freedom” of the model, and intuitively just means that the more parameters a function has, the more adjustments you can make to the estimated y values that you could consistently get across a range of x values. Let’s examine the most extreme case of that. Consider the case of fitting a polynomial of degree 6 to these data (7 parameters, including <span class="math">\(\beta_0\)</span>):</p>
-<pre class="sourceCode python"><code class="sourceCode python">
-beta_ortho = np.polyfit(x_ortho, y_ortho, <span class="dv">6</span>)
-beta_para = np.polyfit(x_para, y_para, <span class="dv">6</span>)</code></pre>
+<p>One of the reasons we should be suspicious of the more accurate second model is that the Weibull function has more parameters. This is sometimes referred to as the “degrees of freedom” of the model, and intuitively just means that the more parameters a function has, the more adjustments you can make to the estimated y values that you could consistently get across a range of x values. Let’s examine the most extreme case of that. Consider the case of fitting a polynomial of degree 6 to these data (7 parameters, including <span class="math inline">\(\beta_0\)</span>):</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb6-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">beta_ortho <span class="op">=</span> np.polyfit(x_ortho, y_ortho, <span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">beta_para <span class="op">=</span> np.polyfit(x_para, y_para, <span class="dv">6</span>)</a></code></pre></div>
 <p>This model has even smaller error on the data:</p>
-<pre class="sourceCode python"><code class="sourceCode python">
-SE_ortho = np.<span class="dt">sum</span>((y_ortho - np.polyval(beta_ortho, x_ortho))**<span class="dv">2</span>)
-SSE_para = np.<span class="dt">sum</span>((y_para - np.polyval(beta_para, x_para))**<span class="dv">2</span>)</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb7-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">SE_ortho <span class="op">=</span> np.<span class="bu">sum</span>((y_ortho <span class="op">-</span> np.polyval(beta_ortho, x_ortho))<span class="op">**</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">SSE_para <span class="op">=</span> np.<span class="bu">sum</span>((y_para <span class="op">-</span> np.polyval(beta_para, x_para))<span class="op">**</span><span class="dv">2</span>)</a></code></pre></div>
 <p>But examining the curves of the fits, you can see that it does some absurd things in order to fit the data:</p>
-<div class="figure">
-<img src="img/figure9.png" alt="Fits of polynomials with degree 6" />
-<p class="caption">Fits of polynomials with degree 6</p>
-</div>
+<figure>
+<img src="img/figure9.png" alt="Fits of polynomials with degree 6" /><figcaption>Fits of polynomials with degree 6</figcaption>
+</figure>
 <p>That is, it bends to match not only the large-scale trends in the data, but also the noise associated with each data point. This match to the noise that characterizes the sample is called “overfitting”.</p>
 <p>Overfitting generally becomes worse as a model becomes more flexible. This can roughly be quantified by the number of parameters in the model. That is, a polynomial of degree 6 will always fit the data more accurately than a polynomial of degree 5, only because of overfitting to the noise in the sample.</p>
 <aside class="callout panel panel-info">
@@ -136,32 +133,32 @@ SSE_para = np.<span class="dt">sum</span>((y_para - np.polyval(beta_para, x_para
 <h2 id="formalparamteric-model-selection"><span class="glyphicon glyphicon-pushpin"></span>Formal/paramteric model selection</h2>
 </div>
 <div class="panel-body">
-<p>An F-test can be used to compare models that are <em>nested</em>. That is, a model in which an additional set of (one or more) parameters is added to an existing model. In addition, a few metrics have been developed to compare different models (also models that are not nested) based on the SSE and the number of parameters. <a href="http://en.wikipedia.org/wiki/Bayesian_information_criterion">These</a> <a href="http://en.wikipedia.org/wiki/Akaike_information_criterion">metrics</a> generally penalize a model for having many parameters and reward it for getting small SSE. However, these methods generally have some underlying assumptions and are not that transparent to understand. For a nice exposition on how to use these methods see <a href="">this paper</a> (excuse the paywall…). Also, if you are interested in more on this topic, <a href="http://stats.stackexchange.com/questions/20729/best-approach-for-model-selection-bayesian-or-cross-validation">This discussion</a> on the stats stack exchange website is an excellent resource.</p>
+<p>An F-test can be used to compare models that are <em>nested</em>. That is, a model in which an additional set of (one or more) parameters is added to an existing model. In addition, a few metrics have been developed to compare different models (also models that are not nested) based on the SSE and the number of parameters. <a href="http://en.wikipedia.org/wiki/Bayesian_information_criterion">These</a> <a href="http://en.wikipedia.org/wiki/Akaike_information_criterion">metrics</a> generally penalize a model for having many parameters and reward it for getting small SSE. However, these methods generally have some underlying assumptions and are not that transparent to understand. For a nice exposition on how to use these methods see <a href="https://doi.org/10.1118/1.2794176">this paper</a> (excuse the paywall…). Also, if you are interested in more on this topic, <a href="http://stats.stackexchange.com/questions/20729/best-approach-for-model-selection-bayesian-or-cross-validation">This discussion</a> on the stats stack exchange website is an excellent resource.</p>
 </div>
 </aside>
 <h2 id="overcoming-overfitting-model-selection-with-cross-validation">Overcoming overfitting – model selection with cross-validation</h2>
 <p>One strategy to overcome overfitting is by separating the noise in the data used to fit the model from the noise in the data used to evaluate the model. This is called “cross-validation”. We fit the model to one sample, and then evaluate it on another. If we haven’t collected two separate samples, it might still be safe to assume that the noise in every individual observation (in the case of these experiments, each trial) is independent, and we can generate two samples by splitting the data up into sub-samples. There are different ways to split up the data, but in this case it makes sense to separately look at odd trials and at even trials, minimizing serial order effects (such as how tired the person got).</p>
 <p>We refer to the sample used for fitting the model as the “training set”. Using the training set, we find the parameters of the model</p>
-<pre class="sourceCode python"><code class="sourceCode python">
-ortho_1 = ortho[::<span class="dv">2</span>]
-x_ortho_1, y_ortho_1, n_ortho_1 = transform_data(ortho_train)
-params_ortho_1, cov_ortho_1 = opt.curve_fit(cumgauss, x_ortho_1, y_ortho_1)</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb8-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">ortho_1 <span class="op">=</span> ortho[::<span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb8-3" data-line-number="3">x_ortho_1, y_ortho_1, n_ortho_1 <span class="op">=</span> transform_data(ortho_train)</a>
+<a class="sourceLine" id="cb8-4" data-line-number="4">params_ortho_1, cov_ortho_1 <span class="op">=</span> opt.curve_fit(cumgauss, x_ortho_1, y_ortho_1)</a></code></pre></div>
 <p>The left-out sample is called the “testing set”. We use this sample to calculate the error:</p>
-<pre class="sourceCode python"><code class="sourceCode python">
-ortho_2 = ortho[<span class="dv">1</span>::<span class="dv">2</span>]
-x_ortho_2, y_ortho_2, n_ortho_2 = transform_data(ortho_train)
-SSE_ortho_2 = np.<span class="dt">sum</span>((cumgauss(x_ortho_2, params_ortho_1[<span class="dv">0</span>], params_ortho_1[<span class="dv">1</span>]) - y_ortho_2) ** <span class="dv">2</span>)</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb9-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">ortho_2 <span class="op">=</span> ortho[<span class="dv">1</span>::<span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3">x_ortho_2, y_ortho_2, n_ortho_2 <span class="op">=</span> transform_data(ortho_train)</a>
+<a class="sourceLine" id="cb9-4" data-line-number="4">SSE_ortho_2 <span class="op">=</span> np.<span class="bu">sum</span>((cumgauss(x_ortho_2, params_ortho_1[<span class="dv">0</span>], params_ortho_1[<span class="dv">1</span>]) <span class="op">-</span> y_ortho_2) <span class="op">**</span> <span class="dv">2</span>)</a></code></pre></div>
 <p>In order for this to be cross-validation, we would want to also do it the other way around: use set #2 as the training set and evaluate on the set #1 as the testing set:</p>
-<pre class="sourceCode python"><code class="sourceCode python">
-params_ortho_2, cov_ortho_2 = opt.curve_fit(cumgauss, x_ortho_2, y_ortho_2)
-SSE_ortho_1 = np.<span class="dt">sum</span>((cumgauss(x_ortho_1, params_ortho_2[<span class="dv">0</span>], params_ortho_2[<span class="dv">1</span>]) - y_ortho_1) ** <span class="dv">2</span>)</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb10-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">params_ortho_2, cov_ortho_2 <span class="op">=</span> opt.curve_fit(cumgauss, x_ortho_2, y_ortho_2)</a>
+<a class="sourceLine" id="cb10-3" data-line-number="3">SSE_ortho_1 <span class="op">=</span> np.<span class="bu">sum</span>((cumgauss(x_ortho_1, params_ortho_2[<span class="dv">0</span>], params_ortho_2[<span class="dv">1</span>]) <span class="op">-</span> y_ortho_1) <span class="op">**</span> <span class="dv">2</span>)</a></code></pre></div>
 <p>To evaluate model over all</p>
 <aside class="callout panel panel-info">
 <div class="panel-heading">
 <h2 id="k-fold-cross-validation"><span class="glyphicon glyphicon-pushpin"></span>K-fold cross-validation</h2>
 </div>
 <div class="panel-body">
-<p>This type of cross-validation is a special case of what we call “k-fold” cross-validation. In each iteration of this procedure <span class="math">\(\frac{1/k}\)</span> of the data is left out for evaulation and the remaining data is used for training. In this case, we are using 2-fold cross-validation, or what is sometimes called &gt; “split-half cross-validation”</p>
+<p>This type of cross-validation is a special case of what we call “k-fold” cross-validation. In each iteration of this procedure <span class="math inline">\(\frac{1/k}\)</span> of the data is left out for evaulation and the remaining data is used for training. In this case, we are using 2-fold cross-validation, or what is sometimes called &gt; “split-half cross-validation”</p>
 </div>
 </aside>
 <section class="challenge panel panel-success">
@@ -169,7 +166,7 @@ SSE_ortho_1 = np.<span class="dt">sum</span>((cumgauss(x_ortho_1, params_ortho_2
 <h2 id="cross-validation"><span class="glyphicon glyphicon-pencil"></span>Cross-validation</h2>
 </div>
 <div class="panel-body">
-<ol style="list-style-type: decimal">
+<ol type="1">
 <li>Write the code to cross-validate the parallel condition (bonus points if you write a function that can do both without changes!)</li>
 <li>Evaluate the Weibull model as well. Which model do you think is better?</li>
 </ol>

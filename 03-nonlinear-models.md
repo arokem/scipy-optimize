@@ -134,7 +134,7 @@ model.
 
 To perform optimization, we need to define the functional form of our model. For
 this kind of data, a common model to use (e.g in [work by Yu and
-Levi](http://ww.journalofvision.org/content/2/3/4.full)) is a cumulative
+Levi](http://doi.org/10.1167/2.3.4)) is a cumulative
 Gaussian function. The Gaussian distribution is parameterized by 2 numbers, the
 mean and the variance, so as in the linear model shown above, this model has 2
 parameters:

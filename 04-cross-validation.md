@@ -34,7 +34,7 @@ def weibull(x, threshx, slope, lower_asymp, upper_asymp):
 
     threshx : float
        The value of x at the deflection point of the function.
-       For a lower_asymp set to 0.5, this is at approximately y=0.81  
+       For a lower_asymp set to 0.5, this is at approximately y=0.81
 
     slope : float
         The slope of the function at the deflection point.
@@ -173,7 +173,7 @@ sample.
 > penalize a model for having many parameters and reward it for getting small
 > SSE. However, these methods generally have some underlying assumptions and are
 > not that transparent to understand. For a nice exposition on how to use these
-> methods see [this paper]() (excuse the paywall...). Also, if you are
+> methods see [this paper](https://doi.org/10.1118/1.2794176) (excuse the paywall...). Also, if you are
 > interested in more on this topic, [This discussion](http://stats.stackexchange.com/questions/20729/best-approach-for-model-selection-bayesian-or-cross-validation) on
 > the stats stack exchange website is an excellent resource.
 
