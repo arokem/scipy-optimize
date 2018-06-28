@@ -14,17 +14,17 @@ The main distinction we will make in this lesson is between linear models and
 non-linear models. Linear models are models that can be described by the
 following functional form:
 
-$\bf{y} = \beta_0 + \beta_1 \bf{x}_1 + \beta_2 \bf{x}_2 + ... + \beta_n \bf{x}_n + \epsilon$,
+$\mathbf{y} = \beta_0 + \beta_1 \mathbf{x}_1 + \beta_2 \mathbf{x}_2 + ... + \beta_n \mathbf{x}_n + \epsilon$,
 
 where $\bf{y}$ denotes the dependent variable or variables (that's why it's
 bold-faced: it could be a vector!) in your experiment. $\bf{x}_i$ are sets of
-dependent variables (also, possibly vectors) and $\beta_i$ are parameters.
+independent variables (also, possibly vectors) and $\beta_i$ are parameters.
 Finally, $\epsilon$ is the noise in the experiment. You can also think about
 $\epsilon$ as all the things that your model doesn't know about. For example, in
 the visual experiment described, changes in participants wakefulness might
 affect performance in a systematic way, but unless we explicitely measure
 wakefulness and add it as an independent variable to our analysis (as another
-$\bf{x}$), we don't know it's value on each trial and it goes into the noise.
+$\bf{x}$), we don't know its value on each trial and it goes into the noise.
 
 All the variables designated as $\beta_i$ are parameters of the model.
 
@@ -39,7 +39,7 @@ $SSE = \sum{(y - \hat{y})^2}$
 where $\hat{y}$ is the model estimate of the dependent variable (the "hat" on
 top of the variable indicates that it is estimated through the model, rather
 than the one that we measured). Then we will want to find values of the
-paraemters $\beta_i$ that bring about the smallest possible value of SSE.
+parameters $\beta_i$ that bring about the smallest possible value of SSE.
 
 As mentioned before, finding good values for the parameters, $\beta_i$ is called
 "fitting the model". It turns out that linear models are easy to fit. Under some
@@ -110,7 +110,7 @@ beta0_ortho = beta_ortho[1]
 >
 > `my_tuple = (1, 2, 3)`
 >
-> The main difference between tuples and lists (you should have seen lists in the [software carpentry python lessons](http://swcarpentry.github.io/python-novice-inflammation/03-lists.html)
+> The main difference between tuples and lists (you should have seen lists in the [software carpentry python lessons](http://swcarpentry.github.io/python-novice-inflammation/03-lists.html))
 > is that the items in lists can be changed after they are allocated, and
 > tuples are "immutable"
 
@@ -129,7 +129,7 @@ coefficients and are just estimates based on the sample we've observed, we
 mark them as an estimate by putting a hat on them: $\hat{\beta}$.
 
 The inverse of `np.polyfit` is the function `np.polyval' that takes these values
-$\\hat{beta}$ and values of the independent variable (x), and produces estimated
+$\hat{\beta}$ and values of the independent variable (x), and produces estimated
 values of the dependent variable: $\hat{y}$, according to the polynomial
 function.
 
@@ -219,7 +219,7 @@ parallel relative to the orthogonal condition.
 
 But there are also a few problems with this model: It seems to miss a lot of the
 points. That could be because the data is very noisy, but we can see that the
-model systematically overshoot the fit for high values of x and systematically
+model systematically overshoots the fit for high values of x and systematically
 undershoots for low values of x. If we had more data, we might see this
 repeatedly, clueing us in that this is not just a matter of the noise in this
 data. This might indicate to us that another model might be better for this
