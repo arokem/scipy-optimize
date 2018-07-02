@@ -115,8 +115,8 @@ Should we switch over to this model? It seems to be doing better in fitting the 
 One of the reasons we should be suspicious of the more accurate second model is
 that the Weibull function has more parameters. This is sometimes referred to as
 the "degrees of freedom" of the model, and intuitively just means that the more
-parameters a function has, the more adjustments you can make to the estimated y
-values that you could consistently get across a range of x values. Let's examine
+parameters a function has, the more adjustments you can make to the estimated $y$
+values that you could consistently get across a range of $x$ values. Let's examine
 the most extreme case of that. Consider the case of fitting a polynomial of
 degree 6 to these data (7 parameters, including $\beta_0$):
 

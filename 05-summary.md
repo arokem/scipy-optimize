@@ -33,8 +33,8 @@ of the parameters set the model to be almost equally accurate. Leo Breiman calls
 this the "Rashomon effect".
 
 Another thing to beware are so-called **local minima**. These are settings of
-parameters that seem good, but only because all setting that are similar worse.
-There might be a global minimum that is even better.
+parameters that seem good, but only because all similar settings are worse.
+There might be completely different settings that lead to an even better global minimum.
 
 ![Local and global minima](img/figure10.png)
 
