@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="generator" content="pandoc">
-    <title>01-intro</title>
+    <title>Introduction – models and why we like them</title>
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" />
@@ -23,7 +23,7 @@
       <article>
       <div class="row">
         <div class="col-md-10 col-md-offset-1">
-                    <h1 class="title"></h1>
+                    <h1 class="title">Introduction – models and why we like them</h1>
           <section class="objectives panel panel-warning">
 <div class="panel-heading">
 <h2 id="learning-objectives"><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
@@ -57,11 +57,11 @@
 <p>If you are wondering why we are interested in surround suppression in the first place, you can find some of our papers using these measurements on <a href="http://arokem.org/publications">my website</a>. For example, in <a href="https://doi.org/10.1523/JNEUROSCI.6158-09.2010">one study</a>, we found that this measurement tells us about differences in brain chemistry between healthy people, and patients with schizophrenia.</p>
 </div>
 </aside>
-<p>Let’s look at the experimental data from one participant. We have two files from this one subject in csv files, <code>scipy-optimize-data/ortho.csv</code> and <code>scipy-optimize-data/para.csv</code>. As their names suggest they come from two different runs of the experiment: one in which the surrounding stimulus was oriented in the parallel orientation relative to the center stimulus and one in which the surrounding stimulus was orthogonal to the center stimulus. The files contain three columns: contrast1 is the contrast in the first interval, contrast2 is the contrast in the second interval and answer is what the participant thought had higher contrast. We will use the function <code>mlab.csv2rec</code> to read the data into a numpy <a href="reference.html#record%20array">record array</a>:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb1-1" data-line-number="1"></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="im">from</span> matplotlib <span class="im">import</span> mlab</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">ortho <span class="op">=</span> mlab.csv2rec(<span class="st">&#39;scipy-optimize-data/ortho.csv&#39;</span>)</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">para <span class="op">=</span> mlab.csv2rec(<span class="st">&#39;scipy-optimize-data/para.csv&#39;</span>)</a></code></pre></div>
+<p>Let’s look at the experimental data from one participant. We have two files from this one subject in csv files, <code>scipy-optimize-data/ortho.csv</code> and <code>scipy-optimize-data/para.csv</code>. As their names suggest they come from two different runs of the experiment: one in which the surrounding stimulus was oriented in the parallel orientation relative to the center stimulus and one in which the surrounding stimulus was orthogonal to the center stimulus. The files contain three columns: contrast1 is the contrast in the first interval, contrast2 is the contrast in the second interval and answer is what the participant thought had higher contrast. We will use the Pandas function <code>pd.read_csv</code> to read the data into a <a href="https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.html">DataFrame</a>:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="im">import</span> pandas <span class="im">as</span> pd</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">ortho <span class="op">=</span> pd.read_csv(<span class="st">&#39;../data/ortho.csv&#39;</span>)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">para <span class="op">=</span> pd.read_csv(<span class="st">&#39;../data/para.csv&#39;</span>)</a></code></pre></div>
+<p>We will not explain in much detail what Pandas does, except to mention that the DataFrame that was created contains columns of data that can be addressed by their name. For example, <code>ortho['contrast1']</code> contains a sequence of all the contrasts shown during interval 1.</p>
 <p>If you take a look at the data you will see that the contrast in the second interval was always 0.3 (30% contrast). That’s because this stimulus served as a reference stimulus, to help participants as an anchor. In other experiments, we also varied that, but, for the purpose for our analysis here, we can safely ignore that column altogether and only look at the contrast in the first interval. Let’s take a look at the data. First, we are just going to plot the raw data as it is. We will consider the contrasts as our independent variable, and the responses as the dependent variables.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb2-1" data-line-number="1"></a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</a>
@@ -93,23 +93,19 @@
 <a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">    Returns</span></a>
 <a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">    -------</span></a>
 <a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">    x : The unique contrast differences.</span></a>
-<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">    y : The proportion of &#39;2&#39; answers in each contrast difference</span></a>
+<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">    y : The proportion of &#39;1&#39; answers in each contrast difference</span></a>
 <a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">    n : The number of trials in each x,y condition</span></a>
 <a class="sourceLine" id="cb3-17" data-line-number="17"><span class="co">    &quot;&quot;&quot;</span></a>
-<a class="sourceLine" id="cb3-18" data-line-number="18">    contrast1 <span class="op">=</span> data[<span class="st">&#39;contrast1&#39;</span>]</a>
-<a class="sourceLine" id="cb3-19" data-line-number="19">    answers <span class="op">=</span> data[<span class="st">&#39;answer&#39;</span>]</a>
-<a class="sourceLine" id="cb3-20" data-line-number="20"></a>
-<a class="sourceLine" id="cb3-21" data-line-number="21">    x <span class="op">=</span> np.unique(contrast1)</a>
-<a class="sourceLine" id="cb3-22" data-line-number="22">    y <span class="op">=</span> []</a>
-<a class="sourceLine" id="cb3-23" data-line-number="23">    n <span class="op">=</span> []</a>
-<a class="sourceLine" id="cb3-24" data-line-number="24"></a>
-<a class="sourceLine" id="cb3-25" data-line-number="25">    <span class="cf">for</span> c <span class="kw">in</span> x:</a>
-<a class="sourceLine" id="cb3-26" data-line-number="26">        idx <span class="op">=</span> np.where(contrast1 <span class="op">==</span> c)</a>
-<a class="sourceLine" id="cb3-27" data-line-number="27">        n.append(<span class="bu">float</span>(<span class="bu">len</span>(idx[<span class="dv">0</span>])))</a>
-<a class="sourceLine" id="cb3-28" data-line-number="28">        answer1 <span class="op">=</span> <span class="bu">len</span>(np.where(answers[idx] <span class="op">==</span> <span class="dv">1</span>)[<span class="dv">0</span>])</a>
-<a class="sourceLine" id="cb3-29" data-line-number="29">        y.append(answer1 <span class="op">/</span> n[<span class="op">-</span><span class="dv">1</span>])</a>
-<a class="sourceLine" id="cb3-30" data-line-number="30"></a>
-<a class="sourceLine" id="cb3-31" data-line-number="31">    <span class="cf">return</span> x,y,n</a></code></pre></div>
+<a class="sourceLine" id="cb3-18" data-line-number="18">    x <span class="op">=</span> np.unique(data[<span class="st">&quot;contrast1&quot;</span>])</a>
+<a class="sourceLine" id="cb3-19" data-line-number="19">    y <span class="op">=</span> []</a>
+<a class="sourceLine" id="cb3-20" data-line-number="20">    n <span class="op">=</span> []</a>
+<a class="sourceLine" id="cb3-21" data-line-number="21"></a>
+<a class="sourceLine" id="cb3-22" data-line-number="22">    <span class="cf">for</span> c <span class="kw">in</span> x:</a>
+<a class="sourceLine" id="cb3-23" data-line-number="23">        sub <span class="op">=</span> data[data[<span class="st">&quot;contrast1&quot;</span>] <span class="op">==</span> c]</a>
+<a class="sourceLine" id="cb3-24" data-line-number="24">        n.append(sub.shape[<span class="dv">0</span>])</a>
+<a class="sourceLine" id="cb3-25" data-line-number="25">        y.append(<span class="bu">sum</span>(sub[<span class="st">&quot;answer&quot;</span>] <span class="op">==</span> <span class="dv">1</span>) <span class="op">/</span> n[<span class="op">-</span><span class="dv">1</span>])</a>
+<a class="sourceLine" id="cb3-26" data-line-number="26"></a>
+<a class="sourceLine" id="cb3-27" data-line-number="27">    <span class="cf">return</span> x,y,n</a></code></pre></div>
 <p>We separately transform the data into proportions for each one of the data files:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb4-1" data-line-number="1"></a>
 <a class="sourceLine" id="cb4-2" data-line-number="2">x_ortho, y_ortho, n_ortho <span class="op">=</span> transform_data(ortho)</a>

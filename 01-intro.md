@@ -1,6 +1,6 @@
 ---
+title: Introduction -- models and why we like them
 layout: page
-title: Introduction: models and why we like them
 minutes: 20
 ---
 
@@ -61,16 +61,20 @@ surrounding stimulus was oriented in the parallel orientation relative to the
 center stimulus  and one in which the surrounding stimulus was orthogonal to the
 center stimulus. The files contain three columns: contrast1 is the contrast in
 the first interval, contrast2 is the contrast in the second interval and answer
-is what the participant thought had higher contrast. We will use the function
-`mlab.csv2rec` to read the data into a numpy [record array](reference.html#record array):
+is what the participant thought had higher contrast. We will use the Pandas function
+`pd.read_csv` to read the data into a [DataFrame](https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.html):
 
 ~~~ {.python}
-
-from matplotlib import mlab
-ortho = mlab.csv2rec('scipy-optimize-data/ortho.csv')
-para = mlab.csv2rec('scipy-optimize-data/para.csv')
+import pandas as pd
+ortho = pd.read_csv('../data/ortho.csv')
+para = pd.read_csv('../data/para.csv')
 
 ~~~
+
+We will not explain in much detail what Pandas does, except to mention that
+the DataFrame that was created contains columns of data that can be addressed
+by their name. For example, `ortho['contrast1']` contains a sequence of all
+the contrasts shown during interval 1.
 
 If you take a look at the data you will see that the contrast in the second
 interval was always 0.3 (30% contrast). That's because this stimulus served as a
@@ -125,24 +129,19 @@ def transform_data(data):
     Returns
     -------
     x : The unique contrast differences.
-    y : The proportion of '2' answers in each contrast difference
+    y : The proportion of '1' answers in each contrast difference
     n : The number of trials in each x,y condition
     """
-    contrast1 = data['contrast1']
-    answers = data['answer']
-
-    x = np.unique(contrast1)
+    x = np.unique(data["contrast1"])
     y = []
     n = []
 
     for c in x:
-        idx = np.where(contrast1 == c)
-        n.append(float(len(idx[0])))
-        answer1 = len(np.where(answers[idx] == 1)[0])
-        y.append(answer1 / n[-1])
+        sub = data[data["contrast1"] == c]
+        n.append(sub.shape[0])
+        y.append(sum(sub["answer"] == 1) / n[-1])
 
     return x,y,n
-
 ~~~
 
 We separately transform the data into proportions for each one of the data files:
