@@ -1,6 +1,12 @@
 # scipy-optimize
 
-This is a short course about fitting models with the `scipy.optimize` module. For documentation see [paper](paper.md)
+This is a short course about fitting models with the `scipy.optimize` module.
+
+To use the module, please refer to the [associated website](http://arokem.github.io/scipy-optimize/)
+
+For documentation see [paper](paper.md)
+
+The module uses the Carpentries [lesson template](http://carpentries.github.io/lesson-example/).
 
 ## Contributing
 
