@@ -37,14 +37,14 @@ optimization for model fitting is not a topic that is usually covered in
 introductory statistics or computing classes in many fields (e.g.,
 psychology). This course fills an existing need for hands-on curriculum
 that goes beyond the topics taught in introductory computing workshops,
-such as 'Software Carpentry', providing material for follow-up workshops
-on advanced/intermediate topics. The target audience for this course are
+such as Software Carpentry, providing material for follow-up workshops
+on advanced/intermediate topics. The target audience for this course is
 researchers or students with some programming knowledge (e.g., having
-participated in a 'Software Carpentry' workshop beforehand).
+participated in a Software Carpentry workshop beforehand).
 
 # Learning objectives
 
-In addition to these general objectives of this lessson, specific learning
+In addition to the general objectives of this lessson, specific learning
 objectives are defined for each part of the lesson:
 
 Part 1:
@@ -91,12 +91,12 @@ response depends on a known (independent) input variable. At the outset
 of the course, learners follow along as we read the data from a
 comma-separated file, plot the data, and transform it into a plot of
 probability of response as a function of input. The core of the course
-are a series of lessons on modeling these data: initially using a linear
+is a series of lessons on modeling these data: initially using a linear
 model, and then using non-linear models. This allows learners to
 understand and describe the distinction between these. The course
 introduces a functional form for these data and then uses the `curve_fit`
-function from the `scipy.optimize` module to fit these functional form,
-with a sum of squared error objective function. The course also
+function from the `scipy.optimize` module to fit these functional forms,
+with a sum-of-squared-errors objective function. The course also
 briefly introduces model comparison using cross-validation and motivates
 this with an example of over-fitting.
 
