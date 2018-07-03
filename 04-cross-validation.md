@@ -171,7 +171,7 @@ sample.
 > penalize a model for having many parameters and reward it for getting small
 > SSE. However, these methods generally have some underlying assumptions and are
 > not that transparent to understand. For a nice exposition on how to use these
-> methods see [this paper](https://doi.org/10.1118/1.2794176) (excuse the paywall...). Also, if you are
+> methods see [(Glatting et al., 2007)](https://doi.org/10.1118/1.2794176) (excuse the paywall...). Also, if you are
 > interested in more on this topic, [This discussion](http://stats.stackexchange.com/questions/20729/best-approach-for-model-selection-bayesian-or-cross-validation) on
 > the stats stack exchange website is an excellent resource.
 

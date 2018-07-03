@@ -32,7 +32,8 @@ All the variables designated as $\beta_i$ are parameters of the model.
 
 There are many things you might do to choose the values of the parameters but a
 common criterion is to select parameters that reduce the sum of the square
-of the errors (SSE) between the model estimate of the dependent variable and the values of the depenedent variable that was measured in the data. That is if:
+of the errors (SSE) between the model estimate of the dependent variable and the
+values of the depenedent variable that was measured in the data. That is if:
 
 $SSE = \sum{(y - \hat{y})^2}$
 

@@ -4,6 +4,15 @@ title: Reference
 subtitle: Reference
 ---
 
+References:
+
+Rokem, Ariel, and Ayelet Nina Landau. 2016. "The Interaction of Orientation-Specific Surround Suppression and Visual-Spatial Attention." bioRxiv. https://doi.org/10.1101/091553.
+
+Yoon, Jong H., Richard J. Maddock, Ariel Rokem, Michael A. Silver, Michael J. Minzenberg, J. Daniel Ragland, and Cameron S. Carter. 2010. "GABA Concentration Is Reduced in Visual Cortex in Schizophrenia and Correlates with Orientation-Specific Surround Suppression." The Journal of Neuroscience 30 (10): 3777-81.
+
+Glatting, Gerhard, Peter Kletting, Sven N. Reske, Kathrin Hohl, and Christina Ring. 2007. "Choosing the Optimal Fit Function: Comparison of the Akaike Information Criterion and the F-Test." Medical Physics 34 (11): 4285-92.
+
+Yu, Cong, Stanley A. Klein, and Dennis M. Levi. 2002. "Facilitation of Contrast Detection by Cross-Oriented Surround Stimuli and Its Psychophysical Mechanisms." Journal of Vision 2 (3): 243–55.
 
 Additional reading:
 

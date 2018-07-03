@@ -13,9 +13,9 @@ minutes: 20
 
 To understand why you would want to fit models in your research, let's first
 consider an experiment in visual neuroscience (this experiment was conducted by
-Ariel Rokem in collaboration with [Ayelet
-Landau](http://www.landaulab.com/ayelet-landau.html), and the data was collected
-by Ayelet while she was at the Ernst Strüngmann Institute in Frankfurt).
+Ariel Rokem in collaboration with [Ayelet Landau](http://www.landaulab.com/ayelet-landau.html), and the data was collected
+by Ayelet while she was at the Ernst Strüngmann Institute in Frankfurt). The full story is
+available in [a manuscript we wrote about these experiments](https://doi.org/10.1101/091553).
 
 In these experiments, participants viewed a stimulus that contained a grating.
 In each trial of the experiment two gratings were displayed in quick succession.
@@ -49,7 +49,7 @@ In each trial of the experiment, participants had to say which of the gratings
 >
 > If you are wondering why we are interested in surround suppression in the
 > first place, you can find some of our papers using these measurements on [my website](http://arokem.org/publications). For example, in
-> [one study](https://doi.org/10.1523/JNEUROSCI.6158-09.2010),
+> one study [(Yoon et al., 2010)](https://doi.org/10.1523/JNEUROSCI.6158-09.2010),
 > we found that this measurement tells us about differences in brain chemistry
 > between healthy people, and patients with schizophrenia.
 

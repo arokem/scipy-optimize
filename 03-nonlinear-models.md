@@ -131,9 +131,8 @@ model.
 ### Defining the model
 
 To perform optimization, we need to define the functional form of our model. For
-this kind of data, a common model to use (e.g in [work by Yu and
-Levi](http://doi.org/10.1167/2.3.4)) is a cumulative
-Gaussian function. The Gaussian distribution is parameterized by 2 numbers, the
+this kind of data, a common model to use (e.g in [work by Yu et al. (2002)](http://doi.org/10.1167/2.3.4))
+is a cumulative Gaussian function. The Gaussian distribution is parameterized by 2 numbers, the
 mean and the variance, so as in the linear model shown above, this model has 2
 parameters:
 
@@ -212,8 +211,8 @@ params_ortho, cov_ortho = opt.curve_fit(cumgauss, x_ortho, y_ortho)
 
 ~~~
 
-The first output contains the parameter estimates, and the second output is their covariance. This might be useful to know, but using the covariance is
-beyond the scope of this lesson.
+The first output contains the parameter estimates, and the second output is their covariance.
+This might be useful to know, but using the covariance is beyond the scope of this lesson.
 
 As with the linear model, we would like to see how well the data fits the model.
 
